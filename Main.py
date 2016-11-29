@@ -64,4 +64,3 @@ while True:
         screen.blit(wall.image, wall.rect)
     pygame.display.flip()
     clock.tick(60)
-
