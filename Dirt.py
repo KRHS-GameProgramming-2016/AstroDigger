@@ -5,7 +5,7 @@ class Wall():
         self.image = pygame.image.load("AstroDigger/Resoucres/Dirt.png")
         if size:
             self.image = pygame.transform.scale(self.image, [size,size])
-        self.rect = self.image.get_rect(center = pos)
+        self.rect = self.image.get_rect(center = pos) 
         
         
     
