@@ -35,7 +35,15 @@ class Player():
             pos[0] = 0
         
     def dist(self, pt):
-        wait_for_user()
+        x = pt[0] - self.rect.right
+        y = pt[1] - self.rect.bottom
+        if x < 0:
+            x += -64
+            x += x
+        if y < 0:
+            y += -64
+            y += y
+        return [x, y]
         
     def inflate(self):
         wait_for_user()
