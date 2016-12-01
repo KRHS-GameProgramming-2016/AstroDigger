@@ -1,6 +1,6 @@
 import pygame, sys, math
 from Player import *
-from Enemy import *
+#from Enemy import *
 from Dirt import *
 from Timer import *
 from Score import *
@@ -16,7 +16,7 @@ screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
 
-level = Level("diggerlevel1.lvl")
+level = Level("none.txt")
 
 enemies = [Enemy("enemy")]
 

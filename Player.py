@@ -35,15 +35,15 @@ class Player():
             pos[0] = 0
         
     def dist(self, pt):
-        #kskssksk
+        wait_for_user()
         
     def inflate(self):
-        #inflatingnggn
+        wait_for_user()
         
     def dig(self, dirt):
-        #sksksks
+        wait_for_user()
         
     def collideEnemy(self, enemy):
          if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                #the player dies
+                wait_for_user()
