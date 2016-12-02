@@ -3,14 +3,13 @@ import pygame, sys, math
 class Player():
     
     def __init__(self, maxSpeed =5 , pos=[0,0], size=[64,64]):
-        
+        self.image = pygame.image.load("Resources/Enemy/Enemy-Pew.png"
         self.rect = self.image.get_rect(center = pos)
         self.speedx = speed[0]
         self.speedy = speed[1]
         self.speed = [self.speedx, self.speedy]
         self.maxSpeed = maxSpeed     
-        self.images = [pygame.image.load("rsc/ball/playerball_up_1.png"),
-                       pygame.image.load("rsc/ball/playerball_up_2.png")
+        self.images = [
                       ]
         if size:
             self.image = pygame.transform.scale(self.image, [size,size])
