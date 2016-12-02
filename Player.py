@@ -17,7 +17,7 @@ class Player():
         self.frame = 0
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
-        self.animationTimerMax = .2 * 60 #seconds * 60 fps
+        self.animationTimerMax = .2 * 60 #seconds * 60 fps jdsjs
     
     def move(self):
         self.speed = [self.speedx, self.speedy]
