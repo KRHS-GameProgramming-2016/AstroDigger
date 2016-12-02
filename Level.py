@@ -1,5 +1,6 @@
 import pygame, sys, math
 from Wall import *
+import dirt
 class Level():
     def __init__(self, levelFile, tileSize=50):
         self.walls = []
@@ -22,15 +23,14 @@ class Level():
 
 
 
-**************
 *            *
 *            *
-*            *
+* a          *
 *111111111111*
 *111111111111*
+*11 x 1111111*
+*111111111111*
+*11111111 x 1*
 *111111111111*
 *111111111111*
-*111111111111*
-*111111111111*
-*111111111111*
-**************
+
