@@ -17,7 +17,7 @@ class Player():
         self.frame = 0
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
-        self.animationTimerMax = .2 * 60 #seconds * 60 fps
+        self.animationTimerMax = .2 * 60 #seconds * 60 fps jdsjs
     
     def move(self):
         self.speed = [self.speedx, self.speedy]
@@ -35,15 +35,23 @@ class Player():
             pos[0] = 0
         
     def dist(self, pt):
-        #kskssksk
+        x = pt[0] - self.rect.right
+        y = pt[1] - self.rect.bottom
+        if x < 0:
+            x += -64
+            x += x
+        if y < 0:
+            y += -64
+            y += y
+        return [x, y]
         
     def inflate(self):
-        #inflatingnggn
+        wait_for_user()
         
     def dig(self, dirt):
-        #sksksks
+        wait_for_user()
         
     def collideEnemy(self, enemy):
          if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                #the player dies
+                wait_for_user()
