@@ -15,6 +15,6 @@ class Level():
         self.ballSpawns = []
                
     def loadLevel(self, levelFile):        
-        f = open("Resouces/Levels/" + levelFile)
+        f = open("Resources/Levels/" + levelFile)
         lines = f.readlines()
         f.close()

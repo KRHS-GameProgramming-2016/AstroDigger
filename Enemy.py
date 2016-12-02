@@ -1,10 +1,10 @@
 import pygame, sys, math
 
 class Enemy():
-    def __init__(self, image, kind, speed=[0,0], pos=[0,0], size=[64,64]):
-        self.image = pygame.image.load("Resources/Enemy " + kind)
+    def __init__(self, image, speed=[0,0], pos=[0,0], size=[64,64]):
+        self.image = pygame.image.load("Resources/Enemy/" + image)
         if size:
-            self.image = pygame.transform.scale(self.image, [size,size])
+            self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect(center = pos)
         self.speedx = speed[0]
         self.speedy = speed[1]
