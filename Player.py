@@ -17,7 +17,7 @@ class Player():
         self.frame = 0
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
-        self.animationTimerMax = .2 * 60 #seconds * 60 fps jdsjs
+        self.animationTimerMax = .2 * 60 #seconds * 60 fps
     
     def move(self):
         self.speed = [self.speedx, self.speedy]
@@ -45,13 +45,20 @@ class Player():
             y += y
         return [x, y]
         
-    def inflate(self):
-        wait_for_user()
+    def inflate(self, enemy):
+        #need the timer
+        enemy.speed = [0, 0]
+        if enemy.inflationLevel < 3:
+            enemy.image = pygame.image.load("Resources/Enemy/Inflation/" +str(enemy.inflationLevel) +".png")
+            enemy.inflationLevel += 1
+        else enemies.remove(enemy)
+        
+        
         
     def dig(self, dirt):
-        wait_for_user()
+        pass
         
     def collideEnemy(self, enemy):
-         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
-            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                wait_for_user()
+         if self.rect.right > enemy.rect.left and self.rect.left < enemy.rect.right:
+            if self.rect.bottom > enemy.rect.top and self.rect.top < enemy.rect.bottom:
+                pass
