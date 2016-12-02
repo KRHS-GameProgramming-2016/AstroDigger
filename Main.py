@@ -1,6 +1,6 @@
 import pygame, sys, math
 from Player import *
-#from Enemy import *
+from Enemy import *
 from Dirt import *
 from Timer import *
 from Score import *
