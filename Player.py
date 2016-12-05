@@ -5,9 +5,7 @@ class Player():
     def __init__(self, maxSpeed =5 , pos=[0,0], size=[64,64]):
         self.image = pygame.image.load("Resources/Enemy/Enemy-Pew.png")
         self.rect = self.image.get_rect()
-        self.speedx = speed[0]
-        self.speedy = speed[1]
-        self.speed = [self.speedx, self.speedy]
+        self.speed = [1, 1]
         self.maxSpeed = maxSpeed     
         self.images = [
                       ]
