@@ -10,14 +10,13 @@ class Player():
         self.images = [
                       ]
         if size:
-            self.image = pygame.transform.scale(self.image, [size,size])
+            self.image = pygame.transform.scale(self.image, size)
         self.frame = 0
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
         self.animationTimerMax = .2 * 60 #seconds * 60 fps
     
     def move(self):
-        self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
         self.animate()
     
