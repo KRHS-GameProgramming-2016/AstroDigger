@@ -44,7 +44,7 @@ class Player():
         return [x, y]
         
     def inflate(self, enemy):
-        #need the timckckcr
+        #need the tickckcr
         enemy.speed = [0, 0]
         if enemy.inflationLevel < 3:
             enemy.image = pygame.image.load("Resources/Enemy/Inflation/" +str(enemy.inflationLevel) +".png")
