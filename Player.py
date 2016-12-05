@@ -26,8 +26,8 @@ class Player():
         return False
     
     def screenCollide(self, screenSize):
-        if pos[0] == screenSize[0]:
-            pos[0] = 0
+        if self.pos[0] == screenSize[0]:
+            self.pos[0] = 0
         
     def dist(self, pt):
         x = pt[0] - self.rect.right
