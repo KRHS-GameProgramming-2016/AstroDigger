@@ -50,7 +50,7 @@ while True:
             player.goMouse(event.pos)
                 
     player.move()
-    player.bounceScreen(size)
+    player.screenCollide(size)
     for wall in walls:
         player.bounceWall(wall)
         
