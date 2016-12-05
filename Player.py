@@ -3,7 +3,7 @@ import pygame, sys, math
 class Player():
     
     def __init__(self, maxSpeed =5 , pos=[0,0], size=[64,64]):
-        self.image = pygame.image.load("Resources/Enemy/Enemy-Pew.png"
+        self.image = pygame.image.load("Resources/Enemy/Enemy-Pew.png")
         self.rect = self.image.get_rect()
         self.speedx = speed[0]
         self.speedy = speed[1]
@@ -50,7 +50,8 @@ class Player():
         if enemy.inflationLevel < 3:
             enemy.image = pygame.image.load("Resources/Enemy/Inflation/" +str(enemy.inflationLevel) +".png")
             enemy.inflationLevel += 1
-        else enemies.remove(enemy)
+        else: 
+            enemies.remove(enemy)
         
         
         
