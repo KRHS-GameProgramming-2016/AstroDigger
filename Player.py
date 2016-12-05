@@ -6,6 +6,7 @@ class Player():
         self.image = pygame.image.load("Resources/Enemy/Enemy-Pew.png")
         self.rect = self.image.get_rect()
         self.speed = [1, 1]
+        self.pos = [self.rect.left, self.rect.top] 
         self.maxSpeed = maxSpeed     
         self.images = [
                       ]
@@ -25,8 +26,8 @@ class Player():
                 return True
         return False
     
-    def screenCollide(self, screenSize, pos):
-        if self.pos[0] == screenSize[0]:
+    def screenCollide(self, screenWidth):
+        if self.pos[0] == screenWidth:
             self.pos[0] = 0
         
     def dist(self, pt):
