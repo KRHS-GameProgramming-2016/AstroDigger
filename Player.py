@@ -18,7 +18,6 @@ class Player():
     
     def move(self):
         self.rect = self.rect.move(self.speed)
-        self.animate()
     
     def dirtCollide(self, dirt):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
