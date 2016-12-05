@@ -45,7 +45,6 @@ while True:
             if event.key == pygame.K_LEFT:
                 player.move("stop left")
                 
-    player.move()
     player.screenCollide(width)
     for wall in walls:
         player.bounceWall(wall)
