@@ -21,7 +21,27 @@ class Player():
     def move(self, direction):
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
-    
+        self.go(direction)
+        
+    def go(self, direction):
+        if direction == "up":
+            self.speedy = -self.maxSpeed
+        if direction == "down":
+            self.speedy = self.maxSpeed
+        if direction == "left":
+            self.speedx = -self.maxSpeed
+        if direction == "right":
+            self.speedx = self.maxSpeed 
+            
+        if direction == "stop up":
+            self.speedy = 0
+        if direction == "stop down":
+            self.speedy = 0
+        if direction == "stop left":
+            self.speedx = 0
+        if direction == "stop right":
+            self.speedx = 0
+        
     def dirtCollide(self, dirt):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:

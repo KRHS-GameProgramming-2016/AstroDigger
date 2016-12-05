@@ -49,6 +49,7 @@ while True:
     for wall in walls:
         player.bounceWall(wall)
         
+        
     bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
     for enemy in enemies:
