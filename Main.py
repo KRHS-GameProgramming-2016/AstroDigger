@@ -18,7 +18,7 @@ bgColor = 0,0,0
 
 level = Level("Digger level1.lvl")
 
-enemies = [Enemy("Enemy-Beatbox.png")]
+enemies = [Enemy("Enemy-Pew.png")]
 
 player = Player()
 walls = level.walls
