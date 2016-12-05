@@ -17,7 +17,8 @@ class Player():
         self.animationTimer = 0
         self.animationTimerMax = .2 * 60 #seconds * 60 fps
     
-    def move(self):
+    def move(self, direction):
+        self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
     
     def dirtCollide(self, dirt):
