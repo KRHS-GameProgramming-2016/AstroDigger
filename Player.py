@@ -25,7 +25,7 @@ class Player():
                 return True
         return False
     
-    def screenCollide(self, screenSize):
+    def screenCollide(self, screenSize, pos):
         if self.pos[0] == screenSize[0]:
             self.pos[0] = 0
         
