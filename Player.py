@@ -2,10 +2,11 @@ import pygame, sys, math
 
 class Player():
     
-    def __init__(self, maxSpeed =5 , pos=[0,0], size=[64,64]):
+    def __init__(self, maxSpeed =5 , pos=[0,0], size=[64,64], speed=[1, 1]):
         self.image = pygame.image.load("Resources/Enemy/Enemy-Pew.png")
         self.rect = self.image.get_rect()
-        self.speed = [1, 1]
+        self.speedx = speed[0]
+        self.speedy = speed[1]
         self.pos = [self.rect.left, self.rect.top] 
         self.maxSpeed = maxSpeed     
         self.images = [
