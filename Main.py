@@ -1,4 +1,4 @@
-import pygame, sys, math
+5impor  pygame, sys, math
 from Player import *
 from Enemy import *
 from Dirt import *
