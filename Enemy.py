@@ -12,7 +12,7 @@ class Enemy():
         self.didBounceX = False
         self.didBounceY = False
         
-        #jsjsj
+        #jsj
     def move(self):
         self.didBounceX = False
         self.didBounceY = False
