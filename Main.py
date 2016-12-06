@@ -21,7 +21,7 @@ level = Level("Digger level1.lvl")
 enemies = [Enemy("Enemy-Pew.png")]
 
 player = Player()
-walls = level.walls
+walls = level.dirt
 
 while True:
     for event in pygame.event.get():

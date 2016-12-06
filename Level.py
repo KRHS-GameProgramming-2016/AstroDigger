@@ -1,6 +1,6 @@
 import pygame, sys, math
 from Dirt import *
-from Digger level1.lvl import *
+
 class Level():
     def __init__(self, levelFile, tileSize=64):
         self.dirt = []
@@ -16,6 +16,6 @@ class Level():
         self.ballSpawns = []
                
     def loadLevel(self, levelFile):        
-        f = open("rsc/levels/"+levelFile)
+        f = open("Resources/Levels/"+levelFile)
         lines = f.readlines()
         f.close()
