@@ -2,8 +2,8 @@ import pygame, sys, math
 
 class Player():
     
-    def __init__(self, maxSpeed =5 , speed=[0,0], pos=[0,0], size=[64,64]):
-        self.image = pygame.image.load("Resources/Enemy/Enemy-Pew.png")
+    def __init__(self, maxSpeed =5 , speed=[5, 5], pos=[0,0], size=[64,64]):
+        self.image = pygame.image.load("Resources/Player/Player.png")
         self.rect = self.image.get_rect()
         self.speedx = speed[0]
         self.speedy = speed[1]
