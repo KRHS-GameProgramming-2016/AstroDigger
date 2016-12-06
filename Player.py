@@ -18,10 +18,9 @@ class Player():
         self.animationTimer = 0
         self.animationTimerMax = .2 * 60 #seconds * 60 fps
     
-    def move(self, direction):
+    def move(self):
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
-        self.go(direction)
         
     def go(self, direction):
         if direction == "up":
