@@ -28,36 +28,32 @@ while True:
         if event.type == pygame.QUIT: sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                player.go("up")
+                player.move("up")
             if event.key == pygame.K_DOWN:
-                player.go("down")
+                player.move("down")
             if event.key == pygame.K_RIGHT:
-                player.go("right")
+                player.move("right")
             if event.key == pygame.K_LEFT:
-                player.go("left")
+                player.move("left")
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
-                player.go("stop up")
+                player.move("stop up")
             if event.key == pygame.K_DOWN:
-                player.go("stop down")
+                player.move("stop down")
             if event.key == pygame.K_RIGHT:
-                player.go("stop right")
+                player.move("stop right")
             if event.key == pygame.K_LEFT:
-                player.go("stop left")
-    else:
-        if event.type == pygame.MOUSEMOTION:
-            pygame.mouse.set_visible(False)
-            player.goMouse(event.pos)
+                player.move("stop left")
                 
-    player.move()
-    player.bounceScreen(size)
+    player.screenCollide(width)
     for wall in walls:
         player.bounceWall(wall)
         
-    bgColor = r,g,b
+        
+    bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
-    for ball in balls:
-        screen.blit(ball.image, ball.rect)
+    for enemy in enemies:
+        screen.blit(enemy.image, enemy.rect)
     screen.blit(player.image, player.rect)
     for wall in walls:
         screen.blit(wall.image, wall.rect)

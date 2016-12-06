@@ -2,10 +2,12 @@ import pygame, sys, math
 
 class Player():
     
-    def __init__(self, maxSpeed =5 , pos=[0,0], size=[64,64]):
+    def __init__(self, maxSpeed =5 , speed=[5, 5], pos=[0,0], size=[64,64]):
         self.image = pygame.image.load("Resources/Enemy/Enemy-Pew.png")
         self.rect = self.image.get_rect()
-        self.speed = [1, 1]
+        self.speedx = speed[0]
+        self.speedy = speed[1]
+        self.pos = [self.rect.left, self.rect.top] 
         self.maxSpeed = maxSpeed     
         self.images = [
                       ]
@@ -16,19 +18,39 @@ class Player():
         self.animationTimer = 0
         self.animationTimerMax = .2 * 60 #seconds * 60 fps
     
-    def move(self):
+    def move(self, direction):
+        self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
-        self.animate()
-    
+        self.go(direction)
+        
+    def go(self, direction):
+        if direction == "up":
+            self.speedy = -self.maxSpeed
+        if direction == "down":
+            self.speedy = self.maxSpeed
+        if direction == "left":
+            self.speedx = -self.maxSpeed
+        if direction == "right":
+            self.speedx = self.maxSpeed 
+            
+        if direction == "stop up":
+            self.speedy = 0
+        if direction == "stop down":
+            self.speedy = 0
+        if direction == "stop left":
+            self.speedx = 0
+        if direction == "stop right":
+            self.speedx = 0
+        
     def dirtCollide(self, dirt):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
                 return True
         return False
     
-    def screenCollide(self, screenSize):
-        if pos[0] == screenSize[0]:
-            pos[0] = 0
+    def screenCollide(self, screenWidth):
+        if self.pos[0] == screenWidth:
+            self.pos[0] = 0
         
     def dist(self, pt):
         x = pt[0] - self.rect.right
@@ -42,7 +64,7 @@ class Player():
         return [x, y]
         
     def inflate(self, enemy):
-        #need the timer
+        #need the tickckcr
         enemy.speed = [0, 0]
         if enemy.inflationLevel < 3:
             enemy.image = pygame.image.load("Resources/Enemy/Inflation/" +str(enemy.inflationLevel) +".png")
