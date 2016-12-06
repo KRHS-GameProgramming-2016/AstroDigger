@@ -2,7 +2,7 @@ import pygame, sys, math
 
 class Player():
     
-    def __init__(self, maxSpeed =5 , speed=[5, 5], pos=[0,0], size=[64,64]):
+    def __init__(self, maxSpeed =5 , speed=[0,0], pos=[0,0], size=[64,64]):
         self.image = pygame.image.load("Resources/Enemy/Enemy-Pew.png")
         self.rect = self.image.get_rect()
         self.speedx = speed[0]
@@ -18,10 +18,9 @@ class Player():
         self.animationTimer = 0
         self.animationTimerMax = .2 * 60 #seconds * 60 fps
     
-    def move(self, direction):
+    def move(self):
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
-        self.go(direction)
         
     def go(self, direction):
         if direction == "up":

@@ -28,28 +28,28 @@ while True:
         if event.type == pygame.QUIT: sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                player.move("up")
+                player.go("up")
             if event.key == pygame.K_DOWN:
-                player.move("down")
+                player.go("down")
             if event.key == pygame.K_RIGHT:
-                player.move("right")
+                player.go("right")
             if event.key == pygame.K_LEFT:
-                player.move("left")
+                player.go("left")
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
-                player.move("stop up")
+                player.go("stop up")
             if event.key == pygame.K_DOWN:
-                player.move("stop down")
+                player.go("stop down")
             if event.key == pygame.K_RIGHT:
-                player.move("stop right")
+                player.go("stop right")
             if event.key == pygame.K_LEFT:
-                player.move("stop left")
+                player.go("stop left")
                 
     player.screenCollide(width)
     for wall in walls:
         player.bounceWall(wall)
         
-        
+    player.move()    
     bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
     for enemy in enemies:
