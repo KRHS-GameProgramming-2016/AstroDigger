@@ -16,7 +16,7 @@ screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
 
-level = Level("Digger level1.lvl")
+level = Level("Digger level1.lvl", 1)
 
 enemies = [Enemy("Enemy-Pew.png")]
 
