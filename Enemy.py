@@ -1,7 +1,7 @@
 import pygame, sys, math
 
 class Enemy():
-    def __init__(self, image, speed=[0,0], pos=[0,0], size=[64,64]):
+    def __init__(self, image, speed=[0,0], pos=[500,250], size=[64,64]):
         self.image = pygame.image.load("Resources/Enemy/" + image)
         if size:
             self.image = pygame.transform.scale(self.image, size)
@@ -12,7 +12,7 @@ class Enemy():
         self.didBounceX = False
         self.didBounceY = False
         
-        #jsj
+        #jsjsj
     def move(self):
         self.didBounceX = False
         self.didBounceY = False
