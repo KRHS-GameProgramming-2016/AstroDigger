@@ -16,12 +16,12 @@ screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
 
-level = Level("Digger level1.lvl", 1)
+level = Level("Digger level1.lvl", 2)
 
-enemies = [Enemy("Enemy-Pew.png")]
+enemies = [Enemy("Enemy-Pew Left.png")]
 
 player = Player()
-walls = level.dirt
+dirts = level.dirts
 
 while True:
     for event in pygame.event.get():
@@ -46,8 +46,8 @@ while True:
                 player.go("stop left")
                 
     player.screenCollide(width)
-    for wall in walls:
-        player.bounceWall(wall)
+    for dirt in dirts:
+        player.dirtCollide(dirt)
         
     player.move()    
     bgColor = r,g,b = 0,0,0
@@ -55,7 +55,7 @@ while True:
     for enemy in enemies:
         screen.blit(enemy.image, enemy.rect)
     screen.blit(player.image, player.rect)
-    for wall in walls:
-        screen.blit(wall.image, wall.rect)
+    for dirt in dirts:
+        screen.blit(dirt.image, dirt.rect)
     pygame.display.flip()
     clock.tick(60)

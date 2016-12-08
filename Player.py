@@ -2,8 +2,12 @@ import pygame, sys, math
 
 class Player():
     
-    def __init__(self, maxSpeed =5 , speed=[0, 0], pos=[0,0], size=[64,64]):
-        self.image = pygame.image.load("Resources/Player/Player.png")
+    def __init__(self,  size=[64,64], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
+        self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
+        self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
+        self.image = self.imageRight
+        self.state = "right"
+        self.prevState = "right"
         self.rect = self.image.get_rect()
         self.speedx = speed[0]
         self.speedy = speed[1]
@@ -18,9 +22,22 @@ class Player():
         self.animationTimer = 0
         self.animationTimerMax = .2 * 60 #seconds * 60 fps
     
+    def animate(self):
+        if self.prevState != self.state:
+            self.prevState = self.state
+            if self.state == "right":
+                self.image = self.imageRight
+            elif self.state == "left":
+                self.image = self.imageLeft
+                
+    
     def move(self):
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
+        self.animate()
+        
+    def direction(direction):
+        return direction    
         
     def go(self, direction):
         if direction == "up":
@@ -29,8 +46,10 @@ class Player():
             self.speedy = self.maxSpeed
         if direction == "left":
             self.speedx = -self.maxSpeed
+            self.state = "left"
         if direction == "right":
             self.speedx = self.maxSpeed 
+            self.state = "right"
             
         if direction == "stop up":
             self.speedy = 0
@@ -41,7 +60,7 @@ class Player():
         if direction == "stop right":
             self.speedx = 0
         
-    def dirtCollide(self, dirt):
+    def dirtCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
                 return True

@@ -3,7 +3,7 @@ from Dirt import *
 
 class Level():
     def __init__(self, levelFile, levelNumber=1, tileSize=64):
-        self.dirt = []
+        self.dirts = []
         self.players = []
         self.playerSpawns = []
         self.tileSize = tileSize
@@ -11,7 +11,7 @@ class Level():
         self.loadLevel(levelFile, levelNumber)
         
     def unloadLevel(self): 
-        self.dirt = []
+        self.dirts = []
         self.player = []
         self.enemySpawn = []
                
@@ -44,8 +44,9 @@ class Level():
         
         for y,line in enumerate(lines):
             for x,c in enumerate(line):
-                if c == '#':
-                    self.walls += [Wall([x*self.tileSize + self.tileSize/2,
+                if c in "12345" :       #levels of dirt
+                    self.dirts += [Dirt(c, 
+                                       [x*self.tileSize + self.tileSize/2,
                                         y*self.tileSize + self.tileSize/2],
                                        self.tileSize)
                                   ]
