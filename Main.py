@@ -22,7 +22,7 @@ enemies = [Enemy("Enemy-Pew Left.png")]
 
 player = Player()
 dirts = level.dirts
-
+timer = Timer([width/2, 50])
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
@@ -48,6 +48,8 @@ while True:
     player.screenCollide(width)
     for dirt in dirts:
         player.dirtCollide(dirt)
+    
+    timer.update()
         
     player.move()    
     bgColor = r,g,b = 0,0,0
@@ -57,5 +59,6 @@ while True:
     screen.blit(player.image, player.rect)
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
+    screen.blit(timer.image, timer.rect)
     pygame.display.flip()
     clock.tick(60)
