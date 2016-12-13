@@ -16,7 +16,11 @@ screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
 
+<<<<<<< HEAD
+level = Level("Digger level1.lvl", 9)
+=======
 level = Level("Digger level1.lvl", 1)
+>>>>>>> origin/master
 
 enemies = level.enemies
 print len(enemies)
