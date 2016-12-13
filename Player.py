@@ -59,9 +59,11 @@ class Player():
         if direction == "stop down":
             self.speedy = 0
         if direction == "stop left":
-            self.speedx = 0
+            if self.speedx < 0:
+                self.speedx = 0
         if direction == "stop right":
-            self.speedx = 0
+            if self.speedx > 0:
+                self.speedx = 0
         
     def dirtCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
@@ -73,8 +75,10 @@ class Player():
                     self.speedy = 0
     
     def screenCollide(self, screenWidth):
-        if self.pos[0] == screenWidth:
-            self.pos[0] = 0
+        if self.rect.center[0] > screenWidth:
+            self.rect.center = [0, self.rect.center[1]]
+        elif self.rect.center[0] < 0:
+            self.rect.center = [screenWidth, self.rect.center[1]]
         
     def dist(self, pt):
         x = pt[0] - self.rect.right
