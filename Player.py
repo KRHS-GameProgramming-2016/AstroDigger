@@ -9,9 +9,12 @@ class Player():
         self.state = "right"
         self.prevState = "right"
         self.rect = self.image.get_rect()
+        self.digZone = self.rect.copy()
+        self.digZone = self.digZone.inflate(self.rect.width*2, self.rect.height*2)
         self.speedx = speed[0]
         self.speedy = speed[1]
         self.pos = [self.rect.left, self.rect.top] 
+        self.lives = 5
         self.maxSpeed = maxSpeed     
         self.images = [
                       ]
@@ -62,9 +65,12 @@ class Player():
         
     def dirtCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
-            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                return True
-        return False
+                if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                    self.speedx = -self.speedx
+                    self.speedy = -self.speedy
+                    self.move()
+                    self.speedx = 0
+                    self.speedy = 0
     
     def screenCollide(self, screenWidth):
         if self.pos[0] == screenWidth:
@@ -81,21 +87,48 @@ class Player():
             y += y
         return [x, y]
         
-    def inflate(self, enemy):
-        #need the tickckcr
-        enemy.speed = [0, 0]
-        if enemy.inflationLevel < 3:
-            enemy.image = pygame.image.load("Resources/Enemy/Inflation/" +str(enemy.inflationLevel) +".png")
-            enemy.inflationLevel += 1
-        else: 
-            enemies.remove(enemy)
+    def inflate(self, enemies):
+        self.inflater.rect = self.rect
+        if self.state == "up":
+            self.inflater.rect.top = 0
+        if self.state == "down":
+            self.inflater.rect.bottom = 640
+        if self.state == "left":
+            self.inflater.rect.left = 0
+        if self.state == "right":
+            self.inflater.rect.right = 768
+        for enemy in enemies:
+            if self.inflater.rect.right > enemy.rect.left and self.inflater.rect.left < enemy.rect.right:
+                if self.inflater.rect.bottom > enemy.rect.top and self.inflater.rect.top < enemy.rect.bottom:
+                    enemy.speed = [0, 0]
+                    if enemy.inflationLevel < 3:
+                        enemy.image = pygame.image.load("Resources/Enemy/Inflation/" +str(enemy.inflationLevel) +".png")
+                        enemy.inflationLevel += 1
+                    else: 
+                        enemies.remove(enemy)
         
         
         
-    def dig(self, dirt):
-        pass
+    def dig(self, dirts):
+        for dirt in dirts:
+            if self.digZone.left < dirt.rect.left:
+                if self.digZone.right > dirt.rect.right:
+                    if self.state == "up":
+                        if self.digZone.top < dirt.rect.bottom:
+                            dirts.remove(dirt)
+                    if self.state == "down":
+                        if self.digZone.bottom > dirt.rect.top:
+                            dirts.remove(dirt)
+            if self.digZone.bottom > dirt.rect.bottom:
+                if self.digZone.top < dirt.rect.top:
+                    if self.state == "left":
+                        if self.digZone.left < dirt.rect.right:
+                            dirts.remove(dirt)
+                    if self.state == "right":
+                        if self.digZone.right > dirt.rect.left:
+                            dirts.remove(dirt)
         
-    def collideEnemy(self, enemy):
+    def enemyCollide(self, enemy):
          if self.rect.right > enemy.rect.left and self.rect.left < enemy.rect.right:
             if self.rect.bottom > enemy.rect.top and self.rect.top < enemy.rect.bottom:
-                pass
+                self.lives = self.lives - 1
