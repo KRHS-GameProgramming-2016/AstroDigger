@@ -5,6 +5,10 @@ class Player():
     def __init__(self,  size=[64,64], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
         self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
         self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
+        self.imageDownRight = pygame.image.load("Resources/Player/Player Down Right.png")
+        self.imageDownLeft = pygame.image.load("Resources/Player/Player Down Right.png")
+        self.imageUpRight = pygame.image.load("Resources/Player/Player Up Right.png")
+        self.imageUpLeft = pygame.image.load("Resources/Player/Player Up Right.png")
         self.image = self.imageRight
         self.state = "right"
         self.prevState = "right"
@@ -31,6 +35,14 @@ class Player():
             if self.state == "right":
                 self.image = self.imageRight
             elif self.state == "left":
+                self.image = self.imageLeft
+            elif self.state == "Upleft":
+                self.image = self.imageLeft
+            elif self.state == "Downleft":
+                self.image = self.imageLeft
+            elif self.state == "UpRight":
+                self.image = self.imageLeft
+            elif self.state == "DownRight":
                 self.image = self.imageLeft
                 
     
