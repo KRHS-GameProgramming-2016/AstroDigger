@@ -18,13 +18,19 @@ class Enemy():
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
         
-    def bounceDirt(self, other):
+    def dirtCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
                 if not self.didBounceX:
                     self.speedx = -self.speedx
                 if not self.didBounceY:
                     self.speedy = -self.speedy
+    
+    def screenCollide(self, screenWidth):
+        if self.rect.center[0] > screenWidth:
+            self.rect.center = [0, self.rect.center[1]]
+        elif self.rect.center[0] < 0:
+            self.rect.center = [screenWidth, self.rect.center[1]]
                     
     def dist(self, pt):
         x1 = self.rect.center[0]

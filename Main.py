@@ -15,12 +15,7 @@ size = width, height
 screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
-
-<<<<<<< HEAD
-level = Level("Digger level1.lvl", 9)
-=======
-level = Level("Digger level1.lvl", 1)
->>>>>>> origin/master
+level = Level("Digger level1.lvl", 10)
 
 enemies = level.enemies
 print len(enemies)
@@ -53,10 +48,15 @@ while True:
     player.screenCollide(width)
     for dirt in dirts:
         player.dirtCollide(dirt)
+        for enemy in enemies:
+            enemy.dirtCollide(dirt)
     
     timer.update()
         
-    player.move()    
+    player.move() 
+    for enemy in enemies:
+        enemy.move()   
+        
     bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
     for enemy in enemies:
