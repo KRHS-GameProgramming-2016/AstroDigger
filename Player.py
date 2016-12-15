@@ -13,11 +13,13 @@ class Player():
         self.state = "right"
         self.prevState = "right"
         self.rect = self.image.get_rect()
+        self.digImage = pygame.image.load("Resources/digZone.png")
+        self.digImage = pygame.transform.scale(self.digImage, [128,128])
         self.digZone = self.rect.copy()
-        self.digZone = self.digZone.inflate(self.rect.width*2, self.rect.height*2)
+        self.digZone = self.digZone.inflate(self.rect.width, self.rect.height)
         self.speedx = speed[0]
         self.speedy = speed[1]
-        self.pos = [self.rect.left, self.rect.top] 
+        self.pos = [self.rect.left, self.rect.top]
         self.lives = 5
         self.maxSpeed = maxSpeed     
         self.images = [
@@ -49,6 +51,7 @@ class Player():
     def move(self):
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
+        self.digZone = self.digZone.move(self.speed)
         self.animate()
         
     def direction(direction):
@@ -57,8 +60,10 @@ class Player():
     def go(self, direction):
         if direction == "up":
             self.speedy = -self.maxSpeed
+            self.state = "up"
         if direction == "down":
             self.speedy = self.maxSpeed
+            self.state = "down"
         if direction == "left":
             self.speedx = -self.maxSpeed
             self.state = "left"
@@ -138,7 +143,7 @@ class Player():
             if self.digZone.bottom > dirt.rect.bottom:
                 if self.digZone.top < dirt.rect.top:
                     if self.state == "left":
-                        if self.digZone.left < dirt.rect.right:
+                        if self.digZone.left > dirt.rect.right:
                             dirts.remove(dirt)
                     if self.state == "right":
                         if self.digZone.right > dirt.rect.left:
