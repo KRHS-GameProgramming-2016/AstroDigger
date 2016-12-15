@@ -5,15 +5,11 @@ class Player():
     def __init__(self,  size=[64,64], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
         self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
         self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
-        self.imageDownRight = pygame.image.load("Resources/Player/Player Down Right.png")
-        self.imageDownLeft = pygame.image.load("Resources/Player/Player Down Right.png")
-        self.imageUpRight = pygame.image.load("Resources/Player/Player Up Right.png")
-        self.imageUpLeft = pygame.image.load("Resources/Player/Player Up Right.png")
         self.image = self.imageRight
         self.state = "right"
         self.prevState = "right"
         self.rect = self.image.get_rect()
-        self.digImage = pygame.image.load("Resources/digZone.png")
+        self.digImage = pygame.image.load("Resources/Player/blank.png")
         self.digImage = pygame.transform.scale(self.digImage, [128,128])
         self.digZone = self.rect.copy()
         self.digZone = self.digZone.inflate(self.rect.width, self.rect.height)
