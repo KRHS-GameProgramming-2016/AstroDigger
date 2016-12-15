@@ -15,7 +15,7 @@ size = width, height
 screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
-level = Level("Digger level1.lvl", 10)
+level = Level("Digger level1.lvl", 1)
 
 enemies = level.enemies
 print len(enemies)
@@ -35,6 +35,8 @@ while True:
                 player.go("right")
             if event.key == pygame.K_LEFT:
                 player.go("left")
+            if event.key == pygame.K_d:
+                player.dig(dirts)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.go("stop up")
