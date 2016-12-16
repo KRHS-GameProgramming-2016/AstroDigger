@@ -5,9 +5,11 @@ class Player():
     def __init__(self,  size=[64,64], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
         self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
         self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
+        self.imageUp = pygame.image.load("Resources/Player/Player Up.png")
+        self.imageDown = pygame.image.load("Resources/Player/Player Down.png")
         
         self.size = [size[0]-maxSpeed+1, size[1]-maxSpeed+1]
-        self.size = [32,32]
+        self.size = [64,64]
         self.imageLeft = pygame.transform.scale(self.imageLeft, self.size)
         self.imageRight = pygame.transform.scale(self.imageRight, self.size)
         
@@ -19,6 +21,7 @@ class Player():
         self.digImage = pygame.transform.scale(self.digImage, [128,128])
         self.digZone = self.rect.copy()
         self.digZone = self.digZone.inflate(self.rect.width, self.rect.height)
+        self.inflationLevel = 0
         self.speedx = speed[0]
         self.speedy = speed[1]
         self.didBounceX = False
@@ -41,14 +44,18 @@ class Player():
                 self.image = self.imageRight
             elif self.state == "left":
                 self.image = self.imageLeft
+            elif self.state == "up":
+                self.image = self.imageUp
+            elif self.state == "down":
+                self.image = self.imageDown
             elif self.state == "Upleft":
-                self.image = self.imageLeft
+                self.image = self.imageUp
             elif self.state == "Downleft":
-                self.image = self.imageLeft
+                self.image = self.imageDown
             elif self.state == "UpRight":
-                self.image = self.imageLeft
+                self.image = self.imageUp
             elif self.state == "DownRight":
-                self.image = self.imageLeft
+                self.image = self.imageDown
                 
     
     def move(self):
@@ -116,24 +123,29 @@ class Player():
         return [x, y]
         
     def inflate(self, enemies):
-        self.inflater.rect = self.rect
-        if self.state == "up":
-            self.inflater.rect.top = 0
-        if self.state == "down":
-            self.inflater.rect.bottom = 640
-        if self.state == "left":
-            self.inflater.rect.left = 0
-        if self.state == "right":
-            self.inflater.rect.right = 768
         for enemy in enemies:
-            if self.inflater.rect.right > enemy.rect.left and self.inflater.rect.left < enemy.rect.right:
-                if self.inflater.rect.bottom > enemy.rect.top and self.inflater.rect.top < enemy.rect.bottom:
-                    enemy.speed = [0, 0]
-                    if enemy.inflationLevel < 3:
-                        enemy.image = pygame.image.load("Resources/Enemy/Inflation/" +str(enemy.inflationLevel) +".png")
-                        enemy.inflationLevel += 1
-                    else: 
-                        enemies.remove(enemy)
+            if self.digZone.left < enemy.rect.left:
+                if self.digZone.right > enemy.rect.right:
+                    if self.state == "up":
+                        if self.digZone.top < enemy.rect.bottom:
+                            enemies.remove(enemy)
+                    if self.state == "down":
+                        if self.digZone.bottom > enemy.rect.top:
+                            enemy.speed = [0, 0]
+                            if self.inflationLevel < 3:
+                                #enemy.image = pygame.image.load("Resources/Enemy/Inflation/" +str(enemy.inflationLevel) +".png")
+                                self.inflationLevel += 1
+                            else: 
+                                enemies.remove(enemy)
+            if self.digZone.bottom > enemy.rect.bottom:
+                if self.digZone.top < enemy.rect.top:
+                    if self.state == "left":
+                        if self.digZone.left < enemy.rect.right:
+                            enemies.remove(enemy)
+                    if self.state == "right":
+                        if self.digZone.right > enemy.rect.left:
+                            enemies.remove(enemy)
+
         
         
         
