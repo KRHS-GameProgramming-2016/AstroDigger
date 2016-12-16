@@ -5,9 +5,15 @@ class Player():
     def __init__(self,  size=[64,64], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
         self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
         self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
-        self.image = self.imageRight
+        
+        self.size = [size[0]-maxSpeed+1, size[1]-maxSpeed+1]
+        self.size = [32,32]
+        self.imageLeft = pygame.transform.scale(self.imageLeft, self.size)
+        self.imageRight = pygame.transform.scale(self.imageRight, self.size)
+        
         self.state = "right"
         self.prevState = "right"
+        self.image = self.imageRight
         self.rect = self.image.get_rect()
         self.digImage = pygame.image.load("Resources/Player/blank.png")
         self.digImage = pygame.transform.scale(self.digImage, [128,128])
@@ -15,13 +21,14 @@ class Player():
         self.digZone = self.digZone.inflate(self.rect.width, self.rect.height)
         self.speedx = speed[0]
         self.speedy = speed[1]
+        self.didBounceX = False
+        self.didBounceY = False
         self.pos = [self.rect.left, self.rect.top]
         self.lives = 5
         self.maxSpeed = maxSpeed     
         self.images = [
                       ]
-        if size:
-            self.image = pygame.transform.scale(self.image, size)
+        
         self.frame = 0
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
@@ -45,6 +52,8 @@ class Player():
                 
     
     def move(self):
+        self.didBounceX = False
+        self.didBounceY = False
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
         self.digZone = self.digZone.move(self.speed)
@@ -85,7 +94,9 @@ class Player():
                     self.speedy = -self.speedy
                     self.move()
                     self.speedx = 0
+                    self.didBounceX = True
                     self.speedy = 0
+                    self.didBounceY = True
     
     def screenCollide(self, screenWidth):
         if self.rect.center[0] > screenWidth:
@@ -139,7 +150,7 @@ class Player():
             if self.digZone.bottom > dirt.rect.bottom:
                 if self.digZone.top < dirt.rect.top:
                     if self.state == "left":
-                        if self.digZone.left > dirt.rect.right:
+                        if self.digZone.left < dirt.rect.right:
                             dirts.remove(dirt)
                     if self.state == "right":
                         if self.digZone.right > dirt.rect.left:
