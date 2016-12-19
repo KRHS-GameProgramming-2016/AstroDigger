@@ -5,8 +5,8 @@ class Player():
     def __init__(self,  size=[64,64], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
         self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
         self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
-        self.imageUp = pygame.image.load("Resources/Player/Player Up.png")
-        self.imageDown = pygame.image.load("Resources/Player/Player Down.png")
+        #self.imageUp = pygame.image.load("Resources/Player/Player Up.png")
+        #self.imageDown = pygame.image.load("Resources/Player/Player Down.png")
         
         self.size = [size[0]-maxSpeed+1, size[1]-maxSpeed+1]
         self.size = [64,64]
@@ -44,18 +44,18 @@ class Player():
                 self.image = self.imageRight
             elif self.state == "left":
                 self.image = self.imageLeft
-            elif self.state == "up":
-                self.image = self.imageUp
-            elif self.state == "down":
-                self.image = self.imageDown
-            elif self.state == "Upleft":
-                self.image = self.imageUp
-            elif self.state == "Downleft":
-                self.image = self.imageDown
-            elif self.state == "UpRight":
-                self.image = self.imageUp
-            elif self.state == "DownRight":
-                self.image = self.imageDown
+            #elif self.state == "up":
+                #self.image = self.imageUp
+            #elif self.state == "down":
+                #self.image = self.imageDown
+            #elif self.state == "Upleft":
+                #self.image = self.imageUp
+            #elif self.state == "Downleft":
+                #self.image = self.imageDown
+            #elif self.state == "UpRight":
+                #self.image = self.imageUp
+            #elif self.state == "DownRight":
+                #self.image = self.imageDown
                 
     
     def move(self):
