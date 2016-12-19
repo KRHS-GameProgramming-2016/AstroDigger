@@ -15,14 +15,14 @@ size = width, height
 screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
+level = Level("Digger level1.lvl", 1)
 
-level = Level("Digger level1.lvl", 10)
-
-enemies = [Enemy("Enemy-Pew Left.png")]
+enemies = level.enemies
+print len(enemies)
 
 player = Player()
 dirts = level.dirts
-
+timer = Timer([width/2, 50])
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
@@ -35,10 +35,10 @@ while True:
                 player.go("right")
             if event.key == pygame.K_LEFT:
                 player.go("left")
-            if event.key == pygame.K_SPACE:
-                player.inflate(enemies)
             if event.key == pygame.K_d:
                 player.dig(dirts)
+            if event.key == pygame.K_SPACE:
+                player.inflate(enemies)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.go("stop up")
@@ -52,10 +52,15 @@ while True:
     player.screenCollide(width)
     for dirt in dirts:
         player.dirtCollide(dirt)
-    for enemy in enemies:
-        player.enemyCollide(enemy)
+        for enemy in enemies:
+            enemy.dirtCollide(dirt)
+    
+    timer.update()
         
-    player.move()    
+    player.move() 
+    for enemy in enemies:
+        enemy.move()   
+        
     bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
     for enemy in enemies:
@@ -63,5 +68,6 @@ while True:
     screen.blit(player.image, player.rect)
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
+    screen.blit(timer.image, timer.rect)
     pygame.display.flip()
     clock.tick(60)
