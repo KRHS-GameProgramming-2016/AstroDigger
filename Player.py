@@ -5,8 +5,6 @@ class Player():
     def __init__(self,  size=[64,64], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
         self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
         self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
-        self.imageUp = pygame.image.load("Resources/Player/Player Up.png")
-        self.imageDown = pygame.image.load("Resources/Player/Player Down.png")
         
         self.size = [size[0]-maxSpeed+1, size[1]-maxSpeed+1]
         self.size = [64,64]
@@ -44,10 +42,6 @@ class Player():
                 self.image = self.imageRight
             elif self.state == "left":
                 self.image = self.imageLeft
-            elif self.state == "up":
-                self.image = self.imageUp
-            elif self.state == "down":
-                self.image = self.imageDown
             elif self.state == "Upleft":
                 self.image = self.imageUp
             elif self.state == "Downleft":
@@ -126,10 +120,10 @@ class Player():
         for enemy in enemies:
             if self.digZone.left < enemy.rect.left:
                 if self.digZone.right > enemy.rect.right:
-                    if self.state == "up":
+                    if self.state == "UpRight" or "UpLeft":
                         if self.digZone.top < enemy.rect.bottom:
                             enemies.remove(enemy)
-                    if self.state == "down":
+                    if self.state == "DownRight" or "DownLeft":
                         if self.digZone.bottom > enemy.rect.top:
                             enemy.speed = [0, 0]
                             if self.inflationLevel < 3:
@@ -153,20 +147,23 @@ class Player():
         for dirt in dirts:
             if self.digZone.left < dirt.rect.left:
                 if self.digZone.right > dirt.rect.right:
-                    if self.state == "up":
+                    if self.state == "UpRight" or "UpLeft":
                         if self.digZone.top < dirt.rect.bottom:
-                            dirts.remove(dirt)
-                    if self.state == "down":
+                            dirt.isDug = "dug"
+                    if self.state == "DownRight" or "UpLeft":
                         if self.digZone.bottom > dirt.rect.top:
-                            dirts.remove(dirt)
+                            dirt.isDug = "dug"
             if self.digZone.bottom > dirt.rect.bottom:
                 if self.digZone.top < dirt.rect.top:
                     if self.state == "left":
                         if self.digZone.left < dirt.rect.right:
-                            dirts.remove(dirt)
+                            dirt.isDug = "dug"
                     if self.state == "right":
                         if self.digZone.right > dirt.rect.left:
-                            dirts.remove(dirt)
+                            dirt.isDug = "dug"
+        for dirt in dirts:
+            if dirt.isDug == "dug":
+                dirts.remove(dirt)
         
     def enemyCollide(self, enemy):
          if self.rect.right > enemy.rect.left and self.rect.left < enemy.rect.right:
