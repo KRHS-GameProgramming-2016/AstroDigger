@@ -20,6 +20,7 @@ class Player():
         self.digZone = self.rect.copy()
         self.digZone = self.digZone.inflate(self.rect.width, self.rect.height)
         self.inflationLevel = 0
+        self.digging = False
         self.speedx = speed[0]
         self.speedy = speed[1]
         self.didBounceX = False
@@ -142,15 +143,17 @@ class Player():
 
         
         
+    def dig(self):
+        self.digging = True
         
-    def dig(self, dirts):
+    def digCollide(self, dirt):
         for dirt in dirts:
             if self.digZone.left < dirt.rect.left:
                 if self.digZone.right > dirt.rect.right:
                     if self.state == "UpRight" or "UpLeft":
                         if self.digZone.top < dirt.rect.bottom:
                             dirt.isDug = "dug"
-                    if self.state == "DownRight" or "UpLeft":
+                    if self.state == "DownRight" or "DownLeft":
                         if self.digZone.bottom > dirt.rect.top:
                             dirt.isDug = "dug"
             if self.digZone.bottom > dirt.rect.bottom:
