@@ -33,10 +33,13 @@ class Enemy():
             self.rect.center = [screenWidth, self.rect.center[1]]
                     
     def dist(self, pt):
-        x1 = self.rect.center[0]
-        y1 = self.rect.center[1]
-        x2 = pt[0]
-        y2 = pt[1]
-        xDiff = x1 - x2
-        yDiff = y1 - y2
+        x = pt[0] - self.rect.right
+        y = pt[1] - self.rect.bottom
+        if x < 0:
+            x += -64
+            x += x
+        if y < 0:
+            y += -64
+            y += y
+        return [x, y]
         return math.sqrt(xDiff**2 + yDiff**2)

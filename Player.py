@@ -74,7 +74,7 @@ class Player():
             self.speedx = -self.maxSpeed
             self.state = "left"
         if direction == "right":
-            self.speedx = self.maxSpeed 
+            self.speedx = self.maxSpeed
             self.state = "right"
             
         if direction == "stop up":
