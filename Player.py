@@ -146,13 +146,12 @@ class Player():
         self.digging = True
         
     def digCollide(self, dirt):
-        for dirt in dirts:
-            if self.digZone.left < dirt.rect.left:
-                if self.digZone.right > dirt.rect.right:
-                    if self.state == "UpRight" or "UpLeft":
-                        if self.digZone.top < dirt.rect.bottom:
-                            dirt.isDug = "dug"
-                    if self.state == "DownRight" or "DownLeft":
+        if self.digZone.left < dirt.rect.left:
+            if self.digZone.right > dirt.rect.right:
+                if self.state == "UpRight" or "UpLeft":
+                    if self.digZone.top < dirt.rect.bottom:
+                        dirt.isDug = "dug"
+                if self.state == "DownRight" or "DownLeft":
                         if self.digZone.bottom > dirt.rect.top:
                             dirt.isDug = "dug"
             if self.digZone.bottom > dirt.rect.bottom:
@@ -163,9 +162,6 @@ class Player():
                     if self.state == "right":
                         if self.digZone.right > dirt.rect.left:
                             dirt.isDug = "dug"
-        for dirt in dirts:
-            if dirt.isDug == "dug":
-                dirts.remove(dirt)
         
     def enemyCollide(self, enemy):
          if self.rect.right > enemy.rect.left and self.rect.left < enemy.rect.right:
