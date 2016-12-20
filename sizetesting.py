@@ -36,7 +36,7 @@ while True:
             if event.key == pygame.K_LEFT:
                 player.go("left")
             if event.key == pygame.K_d:
-                player.dig(dirts)
+                player.dig()
             if event.key == pygame.K_SPACE:
                 player.inflate(enemies)
         if event.type == pygame.KEYUP:
@@ -52,6 +52,8 @@ while True:
     player.screenCollide(width)
     for dirt in dirts:
         player.dirtCollide(dirt)
+        if player.digging:
+            player.dig()
         for enemy in enemies:
             enemy.dirtCollide(dirt)
     
