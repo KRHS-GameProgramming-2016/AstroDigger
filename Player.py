@@ -8,20 +8,20 @@ class Player():
         self.imageup = pygame.image.load("Resources/Player/Player Right.png")
         self.imageown = pygame.image.load("Resources/Player/Player Up.png")
         self.image = pygame.image.load("Resources/Player/Player Down.png")
+        self.digImage = pygame.image.load("Resources/digZone.png")
         
         self.size = [size[0]-maxSpeed+1, size[1]-maxSpeed+1]
-        self.size = [64,64]
+        self.size = [60,60]
         self.imageLeft = pygame.transform.scale(self.imageLeft, self.size)
         self.imageRight = pygame.transform.scale(self.imageRight, self.size)
+        self.digImage = pygame.transform.scale(self.digImage, self.size)
         
         self.state = "right"
         self.prevState = "right"
         self.image = self.imageRight
         self.rect = self.image.get_rect()
-        self.digImage = pygame.image.load("Resources/Player/blank.png")
-        self.digImage = pygame.transform.scale(self.digImage, [128,128])
-        self.digZone = self.rect.copy()
-        self.digZone = self.digZone.inflate(self.rect.width, self.rect.height)
+        self.digZone = self.digImage.get_rect()
+        self.digZone = self.digZone.move(size[0], 0)
         self.inflationLevel = 0
         self.digging = False
         self.speedx = speed[0]
@@ -58,6 +58,7 @@ class Player():
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
         self.digZone = self.digZone.move(self.speed)
+        self.digging = False
         self.animate()
         
     def direction(direction):
@@ -66,15 +67,23 @@ class Player():
     def go(self, direction):
         if direction == "up":
             self.speedy = -self.maxSpeed
+            self.digZone.left = self.rect.left
+            self.digZone.bottom = self.rect.top
             self.state = "up"
         if direction == "down":
             self.speedy = self.maxSpeed
+            self.digZone.left = self.rect.left
+            self.digZone.top = self.rect.bottom
             self.state = "down"
         if direction == "left":
             self.speedx = -self.maxSpeed
+            self.digZone.top = self.rect.top
+            self.digZone.right = self.rect.left
             self.state = "left"
         if direction == "right":
             self.speedx = self.maxSpeed
+            self.digZone.top = self.rect.top
+            self.digZone.left = self.rect.right
             self.state = "right"
             
         if direction == "stop up":
@@ -146,22 +155,10 @@ class Player():
         self.digging = True
         
     def digCollide(self, dirt):
-        if self.digZone.left < dirt.rect.left:
-            if self.digZone.right > dirt.rect.right:
-                if self.state == "UpRight" or "UpLeft":
-                    if self.digZone.top < dirt.rect.bottom:
+        if self.digging == True:
+            if self.digZone.right > dirt.rect.left and self.digZone.left < dirt.rect.right:
+                if self.digZone.bottom > dirt.rect.top and self.digZone.top < dirt.rect.bottom:
                         dirt.isDug = "dug"
-                if self.state == "DownRight" or "DownLeft":
-                        if self.digZone.bottom > dirt.rect.top:
-                            dirt.isDug = "dug"
-            if self.digZone.bottom > dirt.rect.bottom:
-                if self.digZone.top < dirt.rect.top:
-                    if self.state == "left":
-                        if self.digZone.left < dirt.rect.right:
-                            dirt.isDug = "dug"
-                    if self.state == "right":
-                        if self.digZone.right > dirt.rect.left:
-                            dirt.isDug = "dug"
         
     def enemyCollide(self, enemy):
          if self.rect.right > enemy.rect.left and self.rect.left < enemy.rect.right:
