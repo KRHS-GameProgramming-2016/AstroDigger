@@ -46,9 +46,9 @@ class Player():
                 self.image = self.imageRight
             elif self.state == "left":
                 self.image = self.imageLeft
-            elif self.state == "Up":
+            elif self.state == "up":
                 self.image = self.imageUp
-            elif self.state == "Down":
+            elif self.state == "down":
                 self.image = self.imageDown
 
     

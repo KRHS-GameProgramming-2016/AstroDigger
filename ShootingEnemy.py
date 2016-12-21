@@ -1,12 +1,11 @@
 import pygame, sys, math, random
-
-class Enemy():
+from Enemy import *
+class ShootingEnemy(Enemy):
     def __init__(self, speed=[0,0], pos=[0,0], size=64):
-        self.size = [size, size]
-        self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Pew Left.png")
-        self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Pew Right.png")
-        self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Pew Up.png")
-        self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Pew Down.png")
+        self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Beatbox Left.png")
+        self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Beatbox Right.png")
+        self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Beatbox Up.png")
+        self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Beatbox Down.png")
         
         self.imageLeft = pygame.transform.scale(self.imageLeft, self.size)
         self.imageRight = pygame.transform.scale(self.imageRight, self.size)
@@ -22,10 +21,10 @@ class Enemy():
         self.didBounceY = False
         
         self.size = size
+        
         self.state = "right"
         self.prevState = "right"
-        
-        
+    
     def move(self):
         self.didBounceX = False
         self.didBounceY = False
@@ -99,3 +98,4 @@ class Enemy():
             y += y
         return [x, y]
         return math.sqrt(xDiff**2 + yDiff**2)
+

@@ -1,6 +1,7 @@
 import pygame, sys, math
 from Dirt import *
 from Enemy import *
+from ShootingEnemy import *
 
 class Level():
     def __init__(self, levelFile, levelNumber=1, tileSize=64):
@@ -52,11 +53,15 @@ class Level():
                                         y*self.tileSize + self.tileSize/2],
                                        self.tileSize)
                                   ]
-        for y,line in enumerate(lines):
-            for x,c in enumerate(line):
-                if c in "x" :       #enemies
-                    self.enemies += [Enemy("Enemy-Pew Left.png", 
-                                       1,
+                if c in "x" :       #Pew
+                    self.enemies += [Enemy(1,
+                                       [x*self.tileSize + self.tileSize/2,
+                                        y*self.tileSize + self.tileSize/2],
+                                       self.tileSize)
+                                  ]
+                                  
+                if c in "y" :       #Beatbox
+                    self.enemies += [ShootingEnemy(1,
                                        [x*self.tileSize + self.tileSize/2,
                                         y*self.tileSize + self.tileSize/2],
                                        self.tileSize)
