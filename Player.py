@@ -5,6 +5,8 @@ class Player():
     def __init__(self,  size=[64,64], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
         self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
         self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
+        self.imageUp = pygame.image.load("Resources/Player/Player Up.png")
+        self.imageDown = pygame.image.load("Resources/Player/Player Down.png")
         self.digImage = pygame.image.load("Resources/digZone.png")
         
         self.size = [size[0]-maxSpeed+1, size[1]-maxSpeed+1]
