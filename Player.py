@@ -156,8 +156,8 @@ class Player():
         
     def digCollide(self, dirt):
         if self.digging == True:
-            if self.digZone.right > dirt.rect.left and self.digZone.left < dirt.rect.right:
-                if self.digZone.bottom > dirt.rect.top and self.digZone.top < dirt.rect.bottom:
+            if self.digZone.bottom > dirt.rect.top and self.digZone.top < dirt.rect.bottom:
+                    if  dirt.rect.left < self.digZone.right and dirt.rect.right > self.digZone.left:
                         dirt.isDug = "dug"
         
     def enemyCollide(self, enemy):
