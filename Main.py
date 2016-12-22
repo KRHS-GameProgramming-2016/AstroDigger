@@ -49,7 +49,7 @@ while True:
                 
     player.screenCollide(width)
     for enemy in enemies:
-        enemy.screenCollide(width)
+        enemy.screenCollide(size)
     for dirt in dirts:
         player.dirtCollide(dirt)
         player.digCollide(dirt)

@@ -2,16 +2,16 @@ import pygame, sys, math, random
 
 class Enemy():
     def __init__(self, speed=[0,0], pos=[0,0], size=64):
-        self.size = [size, size]
+        self.size = size
         self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Pew Left.png")
         self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Pew Right.png")
         self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Pew Up.png")
         self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Pew Down.png")
         
-        self.imageLeft = pygame.transform.scale(self.imageLeft, self.size)
-        self.imageRight = pygame.transform.scale(self.imageRight, self.size)
-        self.imageUp = pygame.transform.scale(self.imageUp, self.size)
-        self.imageDown = pygame.transform.scale(self.imageDown, self.size)
+        self.imageLeft = pygame.transform.scale(self.imageLeft, [self.size,self.size])
+        self.imageRight = pygame.transform.scale(self.imageRight, [self.size,self.size])
+        self.imageUp = pygame.transform.scale(self.imageUp, [self.size,self.size])
+        self.imageDown = pygame.transform.scale(self.imageDown, [self.size,self.size])
         self.image = self.imageRight
         self.rect = self.image.get_rect(center = pos)
         self.maxSpeed = speed
@@ -21,7 +21,7 @@ class Enemy():
         self.didBounceX = False
         self.didBounceY = False
         
-        self.size = size
+        
         self.state = "right"
         self.prevState = "right"
         
@@ -82,7 +82,11 @@ class Enemy():
                 if not self.didBounceY:
                     self.speedy = -self.speedy
                     
-    def screenCollide(self, screenWidth):
+    def screenCollide(self, screenSize):
+        screenWidth = screenSize[0]
+        screenHeight = screenSize[1]
+        if self.rect.top < 0 or self.rect.bottom > screenHeight:
+            self.speedy = -self.speedy
         if self.rect.center[0] > screenWidth:
             self.rect.center = [0, self.rect.center[1]]
         elif self.rect.center[0] < 0:
