@@ -1,7 +1,7 @@
 import pygame, sys, math, random
 
 class Enemy():
-    def __init__(self, speed=[0,0], pos=[0,0], size=64):
+    def __init__(self, speed=0, pos=[0,0], size=64):
         self.size = size
         self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Pew Left.png")
         self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Pew Right.png")
@@ -15,6 +15,8 @@ class Enemy():
         self.image = self.imageRight
         self.rect = self.image.get_rect(center = pos)
         self.maxSpeed = speed
+        
+        self.ShootingEnemy = False
         
         self.decideDirection()
         
@@ -103,3 +105,37 @@ class Enemy():
             y += y
         return [x, y]
         return math.sqrt(xDiff**2 + yDiff**2)
+
+if __name__ == "__main__":
+    pygame.init()
+
+    clock = pygame.time.Clock()
+
+    width = 768
+    height = 640
+    size = width, height
+    screen = pygame.display.set_mode(size)
+
+    e = Enemy(0, [200,200])
+    down = False
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                down = True
+            if event.type == pygame.MOUSEBUTTONUP:
+                down = False
+                
+            if down:
+                bgColor = 0,0,255
+               
+                screen.fill(bgColor)
+                screen.blit(e.imageSLeft, e.rect)
+            else:
+                bgColor = 255,0,0
+               
+                screen.fill(bgColor)
+                screen.blit(e.imageLeft, e.rect)
+                
+            pygame.display.flip()
+            clock.tick(60)
