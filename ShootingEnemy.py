@@ -51,7 +51,8 @@ class ShootingEnemy(Enemy):
             self.state = "left"
             self.shootImage = self.shootXImage
             self.shootZone = self.shootImage.get_rect(midright = self.rect.midleft)
-    #def Shoot(self, speed, pos):
+    
+    def Shoot(self, speed, pos):
 
 
     def move(self):
