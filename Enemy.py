@@ -16,7 +16,7 @@ class Enemy():
         self.rect = self.image.get_rect(center = pos)
         self.maxSpeed = speed
         
-        self.ShootingEnemy = False
+        self.kind = "normal"
         
         self.decideDirection()
         

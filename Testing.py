@@ -68,8 +68,8 @@ while True:
     screen.fill(bgColor)
     for enemy in enemies:
         screen.blit(enemy.image, enemy.rect)
-        if enemy.ShootingEnemy == True:
-            screen.blit(enemy.ShootImage, enemy.ShootZone)
+        if enemy.kind == "shooting":
+            screen.blit(enemy.shootImage, enemy.shootZone)
     screen.blit(player.image, player.rect)
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
