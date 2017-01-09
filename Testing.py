@@ -62,6 +62,8 @@ while True:
         
     player.move() 
     for enemy in enemies:
+        if enemy.kind == "shooting":
+            enemy.shoot(Player)
         enemy.move()   
         
     bgColor = r,g,b = 0,0,0

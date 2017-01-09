@@ -9,7 +9,6 @@ class ShootingEnemy(Enemy):
         self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Beatbox Right.png")
         self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Beatbox Up.png")
         self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Beatbox Down.png")
-        print ">>>>>>>>>>>>>>>>>>>>>>>>>>", self.shootXImage, self.shootYImage
 
         self.imageLeft = pygame.transform.scale(self.imageLeft, [self.size,self.size])
         self.imageRight = pygame.transform.scale(self.imageRight, [self.size,self.size])
@@ -52,7 +51,14 @@ class ShootingEnemy(Enemy):
             self.shootImage = self.shootXImage
             self.shootZone = self.shootImage.get_rect(midright = self.rect.midleft)
     
-    def Shoot(self, speed, pos):
+    def shoot(self, player):
+        if self.shootZone.right > player.rect.left and self.shootZone.rect.left < player.rect.right:
+                if self.shootZone.rect.bottom > player.rect.top and self.shootZone.rect.top < player.rect.bottom:
+                    self.speedx = 0
+                    self.speedy = 0
+                    print "yes"
+        else: print "no"
+                    
 
 
     def move(self):
@@ -72,36 +78,36 @@ class ShootingEnemy(Enemy):
                 self.decideDirection()
         self.animate()
 
-if __name__ == "__main__":
-    pygame.init()
+#if __name__ == "__main__":
+    #pygame.init()
 
-    clock = pygame.time.Clock()
+    #clock = pygame.time.Clock()
 
-    width = 768
-    height = 640
-    size = width, height
-    screen = pygame.display.set_mode(size)
+    #width = 768
+    #height = 640
+    #size = width, height
+    #screen = pygame.display.set_mode(size)
 
-    e = ShootingEnemy(0, [200,200])
-    down = False
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                down = True
-            if event.type == pygame.MOUSEBUTTONUP:
-                down = False
+    #e = ShootingEnemy(0, [200,200])
+    #down = False
+    #while True:
+        #for event in pygame.event.get():
+            #if event.type == pygame.QUIT: sys.exit()
+            #if event.type == pygame.MOUSEBUTTONDOWN:
+                #down = True
+            #if event.type == pygame.MOUSEBUTTONUP:
+                #down = False
 
-            if down:
-                bgColor = 0,0,255
+            #if down:
+                #bgColor = 0,0,255
 
-                screen.fill(bgColor)
-                screen.blit(e.imageSLeft, e.rect)
-            else:
-                bgColor = 255,0,0
+                #screen.fill(bgColor)
+                #screen.blit(e.imageSLeft, e.rect)
+            #else:
+                #bgColor = 255,0,0
 
-                screen.fill(bgColor)
-                screen.blit(e.imageLeft, e.rect)
+                #screen.fill(bgColor)
+                #screen.blit(e.imageLeft, e.rect)
 
-            pygame.display.flip()
-            clock.tick(60)
+            #pygame.display.flip()
+            #clock.tick(60)
