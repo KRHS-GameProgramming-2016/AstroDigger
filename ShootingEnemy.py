@@ -72,7 +72,7 @@ class ShootingEnemy(Enemy):
             self.rect = self.rect.move(self.speed)
             self.shootZone = self.shootZone.move(self.speed)
 
-            if self.speedx != 0:     #moving left/right
+            if  self.speedx != 0:     #moving left/right
                 if self.rect.left % self.size == 0:
                     #print "left/right", self.rect.center[0]
                     self.decideDirection()
