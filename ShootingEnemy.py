@@ -19,6 +19,8 @@ class ShootingEnemy(Enemy):
         self.rect = self.image.get_rect(center = pos)
 
         self.pos = pos
+        self.bfire = bfire
+        bfire = False
 
         self.kind = "shooting"
         self.notStopped = True
@@ -58,9 +60,27 @@ class ShootingEnemy(Enemy):
         if self.shootZone.right > player.rect.left and self.shootZone.left < player.rect.right:
                 if self.shootZone.bottom > player.rect.top and self.shootZone.top < player.rect.bottom:
                     self.notStopped = False
+                    bfire = True
         else:
             self.notStopped = True
-        
+    def bfire(self):
+        if bfire = True:
+            if self.state == "right":
+                self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
+                self.speedx = self.maxSpeed
+                self.speedy = 0
+            elif self.state == "left":
+                self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
+                self.speedx = -self.maxSpeed
+                self.speedy = 0
+            elif self.state == "up":
+                self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
+                self.speedx = 0
+                self.speedy = self.maxSpeed
+            elif self.state == "down":
+                self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
+                self.speedx = 0
+                self.speedy = -self.maxSpeed
                     
 
 
@@ -72,7 +92,7 @@ class ShootingEnemy(Enemy):
             self.rect = self.rect.move(self.speed)
             self.shootZone = self.shootZone.move(self.speed)
 
-            if self.speedx != 0:     #moving left/right
+            if  self.speedx != 0:     #moving left/right
                 if self.rect.left % self.size == 0:
                     #print "left/right", self.rect.center[0]
                     self.decideDirection()
