@@ -6,10 +6,14 @@ class ShootingEnemy(Enemy):
         self.shootYImage = pygame.image.load("Resources/Enemy/ShootZoneY.png")
         self.speed = [speed, 0]
         Enemy.__init__(self, speed, pos, size)
-        self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Beatbox Left.png")
-        self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Beatbox Right.png")
-        self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Beatbox Up.png")
-        self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Beatbox Down.png")
+        self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Beatbox Left.png"),
+                        
+        self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Beatbox Right.png"),
+                        
+        self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Beatbox Up.png"),
+                    
+        self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Beatbox Down.png"),
+                
 
         self.imageLeft = pygame.transform.scale(self.imageLeft, [self.size,self.size])
         self.imageRight = pygame.transform.scale(self.imageRight, [self.size,self.size])
@@ -19,13 +23,18 @@ class ShootingEnemy(Enemy):
         self.rect = self.image.get_rect(center = pos)
 
         self.pos = pos
-        self.bfire = bfire
-        bfire = False
+        #self.bfire = bfire
+        #bfire = False
 
         self.kind = "shooting"
         self.notStopped = True
 
         self.decideDirection()
+        
+        self.frame = 0
+        self.maxFrame = len(self.images) - 1
+        self.animationTimer = 0
+        self.animationTimerMax = .3 * 60 #seconds * 60 fps
 
 
     def decideDirection(self):
@@ -60,27 +69,27 @@ class ShootingEnemy(Enemy):
         if self.shootZone.right > player.rect.left and self.shootZone.left < player.rect.right:
                 if self.shootZone.bottom > player.rect.top and self.shootZone.top < player.rect.bottom:
                     self.notStopped = False
-                    bfire = True
+                    #bfire = True
         else:
             self.notStopped = True
-    def bfire(self):
-        if bfire = True:
-            if self.state == "right":
-                self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
-                self.speedx = self.maxSpeed
-                self.speedy = 0
-            elif self.state == "left":
-                self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
-                self.speedx = -self.maxSpeed
-                self.speedy = 0
-            elif self.state == "up":
-                self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
-                self.speedx = 0
-                self.speedy = self.maxSpeed
-            elif self.state == "down":
-                self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
-                self.speedx = 0
-                self.speedy = -self.maxSpeed
+    #def bfire(self):
+        #if bfire = True:
+            #if self.state == "right":
+                #self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
+                #self.speedx = self.maxSpeed
+                #self.speedy = 0
+            #elif self.state == "left":
+                #self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
+                #self.speedx = -self.maxSpeed
+                #self.speedy = 0
+            #elif self.state == "up":
+                #self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
+                #self.speedx = 0
+                #self.speedy = self.maxSpeed
+            #elif self.state == "down":
+                #self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
+                #self.speedx = 0
+                #self.speedy = -self.maxSpeed
                     
 
 
@@ -92,7 +101,7 @@ class ShootingEnemy(Enemy):
             self.rect = self.rect.move(self.speed)
             self.shootZone = self.shootZone.move(self.speed)
 
-            if  self.speedx != 0:     #moving left/right
+            if self.speedx != 0:     #moving left/right
                 if self.rect.left % self.size == 0:
                     #print "left/right", self.rect.center[0]
                     self.decideDirection()

@@ -3,14 +3,13 @@ import pygame, sys, math, random
 class Enemy():
     def __init__(self, speed=0, pos=[0,0], size=64):
         self.size = size
-        self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Pew Left.png"
-                                           "Resources/Enemy/Enemy-Pew Left2.png")
-        self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Pew Right.png"
-                                            "Resources/Enemy/Enemy-Pew Right2.png")
-        self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Pew Up.png"
-                                         "Resources/Enemy/Enemy-Pew Up2.png")
-        self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Pew Down.png")
-                                           "Resources/Enemy/Enemy-Pew Down2.png")
+        self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Pew Left.png"),
+
+        self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Pew Right.png"),
+ 
+        self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Pew Up.png"),
+
+        self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Pew Down.png"),
         
         self.imageLeft = pygame.transform.scale(self.imageLeft, [self.size,self.size])
         self.imageRight = pygame.transform.scale(self.imageRight, [self.size,self.size])
@@ -31,6 +30,11 @@ class Enemy():
         
         self.state = "right"
         self.prevState = "right"
+        
+        self.frame = 0
+        self.maxFrame = len(self.images) - 1
+        self.animationTimer = 0
+        self.animationTimerMax = .3 * 60 #seconds * 60 fps
         
         
     def move(self):
