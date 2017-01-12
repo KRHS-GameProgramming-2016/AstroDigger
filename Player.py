@@ -5,15 +5,17 @@ class Player():
     def __init__(self,  size=[52, 56], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
         self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
         self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
-        self.imageLeftup = pygame.image.load("Resources/Player/Player Leftup.png")
-        self.imageRightup = pygame.image.load("Resources/Player/Player Rightup.png")
         self.imageUpleft = pygame.image.load("Resources/Player/Player Upleft.png")
         self.imageUpright = pygame.image.load("Resources/Player/Player Upright.png")
         self.imageDownleft = pygame.image.load("Resources/Player/Player Downleft.png")
         self.imageDownright = pygame.image.load("Resources/Player/Player Downright.png")
         self.digImage = pygame.image.load("Resources/digZone.png")
-        self.inflateImage = pygame.image.load("Resources/Enemy/ShootZone.png")
+        self.inflateImage = pygame.image.load("Resources/Player/blank3tall.png")        
+        #self.inflateImageFalseHor = pygame.image.load("Resources/Player/blank3wide.png")        
+        #self.inflateImagetrue = pygame.image.load("Resources/Player/Inflater (weapon) Left.png")
         self.size = size
+        
+        #self.inflateImage = self.inflateImageFalse
         
         self.horizontalsize = [self.size[0], self.size[1]]
         self.verticalsize = [self.size[1], self.size[0]]
@@ -32,6 +34,7 @@ class Player():
         self.imageState = "right"
         self.image = self.imageRight
         self.rect = self.image.get_rect()
+        
         
         self.digZone = self.digImage.get_rect()
         self.digZone.topleft = self.rect.topright
@@ -56,34 +59,28 @@ class Player():
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
         self.animationTimerMax = .2 * 60 #seconds * 60 fps
-    
+      
     def animate(self):
         if self.prevState != self.state:
             if self.state == "right":
                 self.size = self.horizontalsize
-                if self.prevState == "up":
-                    self.image = self.imageDownleft
-                if self.prevState == "right":
-                    self.image = self.imageDownright
+                self.image = self.imageRight
             elif self.state == "left":
                 self.image = self.imageLeft
                 self.size = self.horizontalsize
             elif self.state == "up":
                 self.size = self.verticalsize
-                self.image = self.imageUpleft
-                if self.prevState == "left":
-                    self.image = self.imageUpleft
-                if self.prevState == "right":
+                if self.rect.right < 384:
                     self.image = self.imageUpright
+                if self.rect.left > 384:
+                    self.image = self.imageUpleft
             elif self.state == "down":
                 self.size = self.verticalsize
-                if self.prevState == "left":
+                if self.rect.right < 384:
                     self.image = self.imageDownleft
-                if self.prevState == "right":
+                if self.rect.left > 384:
                     self.image = self.imageDownright
 
-
-    
     def move(self):
         self.didBounceX = False
         self.didBounceY = False
@@ -101,21 +98,29 @@ class Player():
             self.speedy = -self.maxSpeed
             self.digZone.left = self.rect.left
             self.digZone.bottom = self.rect.top
+            self.inflateZone.left = self.rect.left
+            self.inflateZone.bottom = self.rect.top
             self.state = "up"
         if direction == "down":
             self.speedy = self.maxSpeed
             self.digZone.left = self.rect.left
             self.digZone.top = self.rect.bottom
+            self.inflateZone.left = self.rect.left
+            self.inflateZone.top = self.rect.bottom
             self.state = "down"
         if direction == "left":
             self.speedx = -self.maxSpeed
             self.digZone.top = self.rect.top
             self.digZone.right = self.rect.left
+            self.inflateZone.top = self.rect.top
+            self.inflateZone.right = self.rect.left
             self.state = "left"
         if direction == "right":
             self.speedx = self.maxSpeed
             self.digZone.top = self.rect.top
             self.digZone.left = self.rect.right
+            self.inflateZone.top = self.rect.top
+            self.inflateZone.left = self.rect.right
             self.state = "right"
             
         if direction == "stop up":
@@ -160,7 +165,9 @@ class Player():
         return [x, y]
         
     def inflate(self):
+        print "inflate worked"
         self.inflating = True
+        self.inflateImage = self.inflateImagetrue
         
     def dig(self):
         self.digging = True
@@ -177,20 +184,20 @@ class Player():
                         if self.digZone.bottom - dirt.rect.top > self.size[1] / 2: #if the distance between the digZone bottom and the dirt top is less than half the size
                             if dirt.rect.bottom - self.digZone.top > self.size[1] / 2:
                                 dirt.isDug = True
-    def inflateCollide(self, enemy):
-        if self.inflating == True:
-            if self.inflateZone.bottom > enemy.rect.top and self.inflateZone.top < enemy.rect.bottom: #top and bottom bounds
-                if enemy.rect.left < self.inflateZone.right and enemy.rect.right > self.inflateZone.left: #left and right bounds
-                    if self.state == "up" or self.state == "down": #up or down dig
-                        if self.inflateZone.right - enemy.rect.left > self.size[0] / 2: 
-                            if enemy.rect.right - self.inflateZone.left > self.size[0] / 2:
-                                enemy.isInflating = True
-                    elif self.state == "left" or self.state == "right": #left or right dig
-                        if self.inflateZone.bottom - enemy.rect.top > self.size[1] / 2: #if the distance between the inflateZone bottom and the enemy top is less than half the size
-                            if enemy.rect.bottom - self.inflateZone.top > self.size[1] / 2:
-                                enemy.isInflating = True
+    #def inflateCollide(self, enemy):
+        #if self.inflating == True:
+            #if self.inflateZone.bottom > enemy.rect.top and self.inflateZone.top < enemy.rect.bottom: #top and bottom bounds
+                #if enemy.rect.left < self.inflateZone.right and enemy.rect.right > self.inflateZone.left: #left and right bounds
+                    #if self.state == "up" or self.state == "down": #up or down dig
+                        #if self.inflateZone.right - enemy.rect.left > self.size[0] / 2: 
+                            #if enemy.rect.right - self.inflateZone.left > self.size[0] / 2:
+                                #enemy.isInflating = True
+                    #elif self.state == "left" or self.state == "right": #left or right dig
+                        #if self.inflateZone.bottom - enemy.rect.top > self.size[1] / 2: #if the distance between the inflateZone bottom and the enemy top is less than half the size
+                            #if enemy.rect.bottom - self.inflateZone.top > self.size[1] / 2:
+                                #enemy.isInflating = True
     
     def enemyCollide(self, enemy):
          if self.rect.right > enemy.rect.left and self.rect.left < enemy.rect.right:
             if self.rect.bottom > enemy.rect.top and self.rect.top < enemy.rect.bottom:
-                self.lives = self.lives - 1
+                self.speed = [0,0]
