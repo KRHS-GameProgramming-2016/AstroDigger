@@ -7,4 +7,4 @@ class Dirt():
             self.image = pygame.transform.scale(self.image, [size,size])
         self.rect = self.image.get_rect(center = pos)
         self.hp = int(kind)
-        self.isDug = "undug"
+        self.isDug = False

@@ -53,7 +53,7 @@ while True:
     for dirt in dirts:
         player.dirtCollide(dirt)
         player.digCollide(dirt)
-        if dirt.isDug == "dug":
+        if dirt.isDug == True:
             dirts.remove(dirt)
         for enemy in enemies:
             enemy.dirtCollide(dirt)
