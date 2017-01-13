@@ -1,23 +1,19 @@
 import pygame, sys, math, random
+from Enemy import *
 
-class Enemy():
+class Shade():
     def __init__(self, speed=0, pos=[0,0], size=64):
         self.size = size
-        self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Pew Left.png")
-        self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Pew Right.png")
-        self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Pew Up.png")
-        self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Pew Down.png")
-        
-        self.imageLeft = pygame.transform.scale(self.imageLeft, [self.size,self.size])
-        self.imageRight = pygame.transform.scale(self.imageRight, [self.size,self.size])
-        self.imageUp = pygame.transform.scale(self.imageUp, [self.size,self.size])
-        self.imageDown = pygame.transform.scale(self.imageDown, [self.size,self.size])
+        self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-shade-left.png")
+        self.imageRight = pygame.image.load("Resources/Enemy/Enemy-shade-right.png")
+        self.imageUp = pygame.image.load("Resources/Enemy/Enemy-shade-up.png")
+        self.imageDown = pygame.image.load("Resources/Enemy/Enemy-shade-down.png")
         
         self.image = self.imageRight
         self.rect = self.image.get_rect(center = pos)
         self.maxSpeed = speed
         
-        self.kind = "normal"
+        self.kind = "boss"
         
         self.decideDirection()
 
@@ -29,12 +25,7 @@ class Enemy():
         self.state = "right"
         self.prevState = "right"
         
-        #self.frame = 0
-        #self.maxFrame = len(self.images) - 1
-        #self.animationTimer = 0
-        #self.animationTimerMax = .3 * 60 #seconds * 60 fps
-        
-        
+       
     def move(self):
         self.didBounceX = False
         self.didBounceY = False

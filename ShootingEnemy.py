@@ -7,11 +7,8 @@ class ShootingEnemy(Enemy):
         self.speed = [speed, 0]
         Enemy.__init__(self, speed, pos, size)
         self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Beatbox Left.png")
-                        
         self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Beatbox Right.png")
-                        
         self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Beatbox Up.png")
-                    
         self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Beatbox Down.png")
                 
 
@@ -23,18 +20,13 @@ class ShootingEnemy(Enemy):
         self.rect = self.image.get_rect(center = pos)
 
         self.pos = pos
-        #self.bfire = bfire
-        #bfire = False
+        #self.bfire = False
+        #self.bfire.speed = self.speed
 
         self.kind = "shooting"
         self.notStopped = True
 
         self.decideDirection()
-        
-        #self.frame = 0
-        #self.maxFrame = len(self.images) - 1
-        #self.animationTimer = 0
-        #self.animationTimerMax = .3 * 60 #seconds * 60 fps
 
 
     def decideDirection(self):
@@ -69,11 +61,12 @@ class ShootingEnemy(Enemy):
         if self.shootZone.right > player.rect.left and self.shootZone.left < player.rect.right:
                 if self.shootZone.bottom > player.rect.top and self.shootZone.top < player.rect.bottom:
                     self.notStopped = False
-                    #bfire = True
+                    self.bfire = True
         else:
             self.notStopped = True
+            
     #def bfire(self):
-        #if bfire = True:
+        #if self.bfire = True:
             #if self.state == "right":
                 #self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
                 #self.speedx = self.maxSpeed
@@ -111,36 +104,36 @@ class ShootingEnemy(Enemy):
                     self.decideDirection()
         self.animate()
 
-#if __name__ == "__main__":
-    #pygame.init()
+if __name__ == "__main__":
+    pygame.init()
 
-    #clock = pygame.time.Clock()
+    clock = pygame.time.Clock()
 
-    #width = 768
-    #height = 640
-    #size = width, height
-    #screen = pygame.display.set_mode(size)
+    width = 768
+    height = 640
+    size = width, height
+    screen = pygame.display.set_mode(size)
 
-    #e = ShootingEnemy(0, [200,200])
-    #down = False
-    #while True:
-        #for event in pygame.event.get():
-            #if event.type == pygame.QUIT: sys.exit()
-            #if event.type == pygame.MOUSEBUTTONDOWN:
-                #down = True
-            #if event.type == pygame.MOUSEBUTTONUP:
-                #down = False
+    e = ShootingEnemy(0, [200,200])
+    down = False
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                down = True
+            if event.type == pygame.MOUSEBUTTONUP:
+                down = False
 
-            #if down:
-                #bgColor = 0,0,255
+            if down:
+                bgColor = 0,0,0
 
-                #screen.fill(bgColor)
-                #screen.blit(e.imageSLeft, e.rect)
-            #else:
-                #bgColor = 255,0,0
+                screen.fill(bgColor)
+                screen.blit(e.imageSLeft, e.rect)
+            else:
+                bgColor = 0,0,0
 
-                #screen.fill(bgColor)
-                #screen.blit(e.imageLeft, e.rect)
+                screen.fill(bgColor)
+                screen.blit(e.imageLeft, e.rect)
 
-            #pygame.display.flip()
-            #clock.tick(60)
+            pygame.display.flip()
+            clock.tick(60)

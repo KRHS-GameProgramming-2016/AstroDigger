@@ -2,6 +2,7 @@ import pygame, sys, math
 from Dirt import *
 from Enemy import *
 from ShootingEnemy import *
+from Shade import *
 
 class Level():
     def __init__(self, levelFile, levelNumber=1, tileSize=64):
@@ -62,6 +63,13 @@ class Level():
                                   
                 if c in "y" :       #Beatbox
                     self.enemies += [ShootingEnemy(1,
+                                       [x*self.tileSize + self.tileSize/2,
+                                        y*self.tileSize + self.tileSize/2],
+                                       self.tileSize)
+                                  ]
+                        
+                if c in "z" :       #Shade
+                    self.enemies += [Shade(1,
                                        [x*self.tileSize + self.tileSize/2,
                                         y*self.tileSize + self.tileSize/2],
                                        self.tileSize)

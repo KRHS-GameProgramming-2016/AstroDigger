@@ -1,6 +1,8 @@
 import  pygame, sys, math
 from Player import *
 from Enemy import *
+from ShootingEnemy import *
+from Shade import *
 from Dirt import *
 from Timer import *
 from Score import *
@@ -72,6 +74,8 @@ while True:
         screen.blit(enemy.image, enemy.rect)
         if enemy.kind == "shooting":
             screen.blit(enemy.shootImage, enemy.shootZone)
+        if enemy.kind == "boss":
+            screen.blit(enemy.image, enemy.rect)
     screen.blit(player.image, player.rect)
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
