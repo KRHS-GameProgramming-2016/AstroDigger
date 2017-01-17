@@ -15,7 +15,7 @@ size = width, height
 screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
-level = Level("Digger level1.lvl", 1)
+level = Level("Digger level1.lvl", 11)
 
 enemies = level.enemies
 print len(enemies)
@@ -37,6 +37,8 @@ while True:
                 player.go("left")
             if event.key == pygame.K_d:
                 player.dig()
+            if event.key == pygame.K_SPACE:
+                player.inflate()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.go("stop up")
@@ -48,13 +50,20 @@ while True:
                 player.go("stop left")
                 
     player.screenCollide(width)
+    for enemy in enemies:
+        enemy.screenCollide(size)
+        player.inflateCollide(enemy)
+        if enemy.inflation > 0:
+            enemy.speed = [0, 0]
     for dirt in dirts:
         player.dirtCollide(dirt)
-        player.digCollide(dirt)      
-        if dirt.isDug == "dug":
+        player.digCollide(dirt)
+        if dirt.isDug == True:
             dirts.remove(dirt)
         for enemy in enemies:
             enemy.dirtCollide(dirt)
+            player.inflateCollide(enemy)
+            player.enemyCollide(enemy)
     
     timer.update()
         
@@ -62,12 +71,12 @@ while True:
     for enemy in enemies:
         enemy.move()   
         
-    bgColor = r,g,b = 0,0,0
+    bgColor = r,g,b = 0,255,0
     screen.fill(bgColor)
     for enemy in enemies:
         screen.blit(enemy.image, enemy.rect)
     screen.blit(player.image, player.rect)
-    screen.blit(player.digImage, player.digZone)
+    screen.blit(player.inflateImage, player.inflateZone)
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
     screen.blit(timer.image, timer.rect)
