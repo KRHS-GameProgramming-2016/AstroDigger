@@ -1,5 +1,6 @@
 import pygame, sys, math, random
 from Enemy import *
+from Bfire import *
 class ShootingEnemy(Enemy):
     def __init__(self, speed=0, pos=[0,0], size=64):
         self.shootXImage = pygame.image.load("Resources/Enemy/ShootZoneX.png")
@@ -20,8 +21,6 @@ class ShootingEnemy(Enemy):
         self.rect = self.image.get_rect(center = pos)
 
         self.pos = pos
-        #self.bfire = False
-        #self.bfire.speed = self.speed
 
         self.kind = "shooting"
         self.notStopped = True
@@ -61,29 +60,8 @@ class ShootingEnemy(Enemy):
         if self.shootZone.right > player.rect.left and self.shootZone.left < player.rect.right:
                 if self.shootZone.bottom > player.rect.top and self.shootZone.top < player.rect.bottom:
                     self.notStopped = False
-                    self.bfire = True
         else:
             self.notStopped = True
-            
-    #def bfire(self):
-        #if self.bfire = True:
-            #if self.state == "right":
-                #self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
-                #self.speedx = self.maxSpeed
-                #self.speedy = 0
-            #elif self.state == "left":
-                #self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
-                #self.speedx = -self.maxSpeed
-                #self.speedy = 0
-            #elif self.state == "up":
-                #self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
-                #self.speedx = 0
-                #self.speedy = self.maxSpeed
-            #elif self.state == "down":
-                #self.bfire = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt.png")
-                #self.speedx = 0
-                #self.speedy = -self.maxSpeed
-                    
 
 
     def move(self):

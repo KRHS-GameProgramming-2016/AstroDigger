@@ -1,7 +1,7 @@
 import pygame, sys, math, random
 from Enemy import *
 
-class Shade():
+class Shade(Enemy):
     def __init__(self, speed=0, pos=[0,0], size=64):
         self.size = size
         self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-shade-left.png")
@@ -104,36 +104,36 @@ class Shade():
         return [x, y]
         return math.sqrt(xDiff**2 + yDiff**2)
 
-#if __name__ == "__main__":
-    #pygame.init()
+##if __name__ == "__main__":
+    ##pygame.init()
 
-    #clock = pygame.time.Clock()
+    ##clock = pygame.time.Clock()
 
-    #width = 768
-    #height = 640
-    #size = width, height
-    #screen = pygame.display.set_mode(size)
+    ##width = 768
+    ##height = 640
+    ##size = width, height
+    ##screen = pygame.display.set_mode(size)
 
-    #e = Enemy(0, [200,200])
-    #down = False
-    #while True:
-        #for event in pygame.event.get():
-            #if event.type == pygame.QUIT: sys.exit()
-            #if event.type == pygame.MOUSEBUTTONDOWN:
-                #down = True
-            #if event.type == pygame.MOUSEBUTTONUP:
-                #down = False
+    ##e = Enemy(0, [200,200])
+    ##down = False
+    ##while True:
+        ##for event in pygame.event.get():
+            ##if event.type == pygame.QUIT: sys.exit()
+            ##if event.type == pygame.MOUSEBUTTONDOWN:
+                ##down = True
+            ##if event.type == pygame.MOUSEBUTTONUP:
+                ##down = False
                 
-            #if down:
-                #bgColor = 0,0,255
+            ##if down:
+                ##bgColor = 0,0,255
                
-                #screen.fill(bgColor)
-                #screen.blit(e.imageSLeft, e.rect)
-            #else:
-                #bgColor = 255,0,0
+                ##screen.fill(bgColor)
+                ##screen.blit(e.imageSLeft, e.rect)
+            ##else:
+                ##bgColor = 255,0,0
                
-                #screen.fill(bgColor)
-                #screen.blit(e.imageLeft, e.rect)
+                ##screen.fill(bgColor)
+                ##screen.blit(e.imageLeft, e.rect)
                 
-            #pygame.display.flip()
-            #clock.tick(60)
+            ##pygame.display.flip()
+            ##clock.tick(60)

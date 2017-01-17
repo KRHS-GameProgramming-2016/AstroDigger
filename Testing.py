@@ -52,10 +52,11 @@ while True:
     player.screenCollide(width)
     for enemy in enemies:
         enemy.screenCollide(size)
+        enemy.playerCollide(player)
     for dirt in dirts:
         player.dirtCollide(dirt)
         player.digCollide(dirt)
-        if dirt.isDug == "dug":
+        if dirt.isDug == True:
             dirts.remove(dirt)
         for enemy in enemies:
             enemy.dirtCollide(dirt)
@@ -64,8 +65,6 @@ while True:
         
     player.move() 
     for enemy in enemies:
-        if enemy.kind == "shooting":
-            enemy.shoot(player)
         enemy.move()   
         
     bgColor = r,g,b = 0,0,0
@@ -74,13 +73,10 @@ while True:
         screen.blit(enemy.image, enemy.rect)
         if enemy.kind == "shooting":
             screen.blit(enemy.shootImage, enemy.shootZone)
-        if enemy.kind == "boss":
-            screen.blit(enemy.image, enemy.rect)
+            enemy.shoot(player)
     screen.blit(player.image, player.rect)
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
-    #for shootingenemy in shootingenemies
-        
     screen.blit(timer.image, timer.rect)
     pygame.display.flip()
     clock.tick(60)
