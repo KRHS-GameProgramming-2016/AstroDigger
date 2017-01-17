@@ -146,6 +146,17 @@ class Player():
                     self.didBounceX = True
                     self.speedy = 0
                     self.didBounceY = True
+                    
+    def enemyCollide(self, other):
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+                if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                    self.speedx = -self.speedx
+                    self.speedy = -self.speedy
+                    self.move()
+                    self.speedx = 0
+                    self.didBounceX = True
+                    self.speedy = 0
+                    self.didBounceY = True
     
     def screenCollide(self, screenWidth):
         if self.rect.center[0] > screenWidth:
@@ -167,7 +178,7 @@ class Player():
     def inflate(self):
         print "inflate worked"
         self.inflating = True
-        self.inflateImage = self.inflateImagetrue
+        #self.inflateImage = self.inflateImagetrue
         
     def dig(self):
         self.digging = True
@@ -184,20 +195,16 @@ class Player():
                         if self.digZone.bottom - dirt.rect.top > self.size[1] / 2: #if the distance between the digZone bottom and the dirt top is less than half the size
                             if dirt.rect.bottom - self.digZone.top > self.size[1] / 2:
                                 dirt.isDug = True
-    #def inflateCollide(self, enemy):
-        #if self.inflating == True:
-            #if self.inflateZone.bottom > enemy.rect.top and self.inflateZone.top < enemy.rect.bottom: #top and bottom bounds
-                #if enemy.rect.left < self.inflateZone.right and enemy.rect.right > self.inflateZone.left: #left and right bounds
-                    #if self.state == "up" or self.state == "down": #up or down dig
-                        #if self.inflateZone.right - enemy.rect.left > self.size[0] / 2: 
-                            #if enemy.rect.right - self.inflateZone.left > self.size[0] / 2:
-                                #enemy.isInflating = True
-                    #elif self.state == "left" or self.state == "right": #left or right dig
-                        #if self.inflateZone.bottom - enemy.rect.top > self.size[1] / 2: #if the distance between the inflateZone bottom and the enemy top is less than half the size
-                            #if enemy.rect.bottom - self.inflateZone.top > self.size[1] / 2:
-                                #enemy.isInflating = True
-    
-    def enemyCollide(self, enemy):
-         if self.rect.right > enemy.rect.left and self.rect.left < enemy.rect.right:
-            if self.rect.bottom > enemy.rect.top and self.rect.top < enemy.rect.bottom:
-                self.speed = [0,0]
+    def inflateCollide(self, enemy):
+        if self.inflating == True:
+            if self.inflateZone.bottom > enemy.rect.top and self.inflateZone.top < enemy.rect.bottom: #top and bottom bounds
+                if enemy.rect.left < self.inflateZone.right and enemy.rect.right > self.inflateZone.left: #left and right bounds
+                    if self.state == "up" or self.state == "down": #up or down dig
+                        if self.inflateZone.right - enemy.rect.left > self.size[0] / 2: 
+                            if enemy.rect.right - self.inflateZone.left > self.size[0] / 2:
+                                enemy.isInflating = True
+                    elif self.state == "left" or self.state == "right": #left or right dig
+                        if self.inflateZone.bottom - enemy.rect.top > self.size[1] / 2: #if the distance between the inflateZone bottom and the enemy top is less than half the size
+                            if enemy.rect.bottom - self.inflateZone.top > self.size[1] / 2:
+                                enemy.isInflating = True
+
