@@ -7,6 +7,7 @@ from Dirt import *
 from Timer import *
 from Score import *
 from Level import *
+from Background import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -18,6 +19,7 @@ screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
 level = Level("Digger level1.lvl", 11)
+BG = Background(size)
 
 enemies = level.enemies
 print len(enemies)
@@ -48,11 +50,16 @@ while True:
                 player.go("stop right")
             if event.key == pygame.K_LEFT:
                 player.go("stop left")
-                
+        if len(enemies) == 0:
+            level += 1
+            
+    
     player.screenCollide(width)
     for enemy in enemies:
         enemy.screenCollide(size)
+        player.enemyCollide(enemy)
         enemy.playerCollide(player)
+    
     for dirt in dirts:
         player.dirtCollide(dirt)
         player.digCollide(dirt)
@@ -60,7 +67,7 @@ while True:
             dirts.remove(dirt)
         for enemy in enemies:
             enemy.dirtCollide(dirt)
-    
+
     timer.update()
         
     player.move() 
@@ -69,6 +76,7 @@ while True:
         
     bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
+    screen.blit(BG.image, BG.rect)
     for enemy in enemies:
         screen.blit(enemy.image, enemy.rect)
         if enemy.kind == "shooting":
