@@ -52,7 +52,6 @@ while True:
     player.screenCollide(width)
     for enemy in enemies:
         enemy.screenCollide(size)
-        enemy.dirtCollide(dirt)
         player.enemyCollide(enemy)
         enemy.playerCollide(player)
     
@@ -61,6 +60,8 @@ while True:
         player.digCollide(dirt)
         if dirt.isDug == True:
             dirts.remove(dirt)
+        for enemy in enemies:
+            enemy.dirtCollide(dirt)
 
     timer.update()
         
