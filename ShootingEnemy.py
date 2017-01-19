@@ -58,10 +58,11 @@ class ShootingEnemy(Enemy):
     
     def shoot(self, player):
         if self.shootZone.right > player.rect.left and self.shootZone.left < player.rect.right:
-                if self.shootZone.bottom > player.rect.top and self.shootZone.top < player.rect.bottom:
-                    self.notStopped = False
-        else:
-            self.notStopped = True
+            if self.shootZone.bottom > player.rect.top and self.shootZone.top < player.rect.bottom:
+                self.notStopped = False
+                return True
+        self.notStopped = True
+        return False
 
 
     def move(self):

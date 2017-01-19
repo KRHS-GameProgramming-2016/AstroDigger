@@ -6,3 +6,5 @@ class Bfire():
         self.imageRight = pygame.image.load("Beatbox Fire Bolt Right.png")
         self.imageUp = pygame.image.load("Beatbox Fire Bolt Up.png")
         self.imageDown = pygame.image.load("Beatbox Fire Bolt Down.png")
+        
+        
