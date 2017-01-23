@@ -41,6 +41,8 @@ while True:
                 player.go("left")
             if event.key == pygame.K_d:
                 player.dig()
+            if event.key == pygame.K_SPACE:
+                player.inflate()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.go("stop up")
@@ -56,6 +58,11 @@ while True:
         enemy.screenCollide(size)
         player.enemyCollide(enemy)
         enemy.playerCollide(player)
+        player.inflateCollide(enemy)
+        if player.inflateHit == True:
+            enemy.speedx = 0
+            enemy.speedy = 0
+            player.inflateHit = False
     
     for dirt in dirts:
         player.dirtCollide(dirt)

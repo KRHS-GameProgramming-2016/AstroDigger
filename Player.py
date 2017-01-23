@@ -12,7 +12,7 @@ class Player():
         self.digImage = pygame.image.load("Resources/digZone.png")
         self.inflateImageY = pygame.image.load("Resources/Enemy/ShootZoneY.png")
         self.inflateImageX = pygame.image.load("Resources/Enemy/ShootZoneX.png")
-        self.inflateImage = pygame.image.load("Resources/Enemy/ShootZoneX.png")
+        self.inflateImage = self.inflateImageX
         self.size = size
         
         #self.inflateImage = self.inflateImageFalse
@@ -43,7 +43,7 @@ class Player():
         self.inflateZone.topleft = self.rect.topright
         
         self.inflating = False
-        self.inflationLevel = 0
+        self.inflateHit = False
         self.digging = False
         self.speedx = speed[0]
         self.speedy = speed[1]
@@ -213,9 +213,11 @@ class Player():
                     if self.state == "up" or self.state == "down": #up or down dig
                         if self.inflateZone.right - enemy.rect.left > self.size[0] / 2: 
                             if enemy.rect.right - self.inflateZone.left > self.size[0] / 2:
-                                enemy.isInflating = True
+                                self.inflateHit = True
+                                self.inflating = False
                     elif self.state == "left" or self.state == "right": #left or right dig
                         if self.inflateZone.bottom - enemy.rect.top > self.size[1] / 2: #if the distance between the inflateZone bottom and the enemy top is less than half the size
                             if enemy.rect.bottom - self.inflateZone.top > self.size[1] / 2:
-                                enemy.isInflating = True
+                                self.inflateHit = True
+                                self.inflating = False
 
