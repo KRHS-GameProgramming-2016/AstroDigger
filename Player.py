@@ -10,9 +10,9 @@ class Player():
         self.imageDownleft = pygame.image.load("Resources/Player/Player Downleft.png")
         self.imageDownright = pygame.image.load("Resources/Player/Player Downright.png")
         self.digImage = pygame.image.load("Resources/digZone.png")
-        self.inflateImage = pygame.image.load("Resources/Player/blank3tall.png")        
-        #self.inflateImageFalseHor = pygame.image.load("Resources/Player/blank3wide.png")        
-        #self.inflateImagetrue = pygame.image.load("Resources/Player/Inflater (weapon) Left.png")
+        self.inflateImageY = pygame.image.load("Resources/Enemy/ShootZoneY.png")
+        self.inflateImageX = pygame.image.load("Resources/Enemy/ShootZoneX.png")
+        self.inflateImage = pygame.image.load("Resources/Enemy/ShootZoneX.png")
         self.size = size
         
         #self.inflateImage = self.inflateImageFalse
@@ -87,6 +87,7 @@ class Player():
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
         self.digZone = self.digZone.move(self.speed)
+        self.inflateZone = self.inflateZone.move(self.speed)
         self.digging = False
         self.animate()
         
@@ -98,6 +99,8 @@ class Player():
             self.speedy = -self.maxSpeed
             self.digZone.left = self.rect.left
             self.digZone.bottom = self.rect.top
+            self.inflateImage = self.inflateImageY
+            self.inflateZone = self.inflateImage.get_rect()
             self.inflateZone.left = self.rect.left
             self.inflateZone.bottom = self.rect.top
             self.state = "up"
@@ -105,6 +108,8 @@ class Player():
             self.speedy = self.maxSpeed
             self.digZone.left = self.rect.left
             self.digZone.top = self.rect.bottom
+            self.inflateImage = self.inflateImageY
+            self.inflateZone = self.inflateImage.get_rect()
             self.inflateZone.left = self.rect.left
             self.inflateZone.top = self.rect.bottom
             self.state = "down"
@@ -112,6 +117,8 @@ class Player():
             self.speedx = -self.maxSpeed
             self.digZone.top = self.rect.top
             self.digZone.right = self.rect.left
+            self.inflateImage = self.inflateImageX
+            self.inflateZone = self.inflateImage.get_rect()
             self.inflateZone.top = self.rect.top
             self.inflateZone.right = self.rect.left
             self.state = "left"
@@ -119,6 +126,10 @@ class Player():
             self.speedx = self.maxSpeed
             self.digZone.top = self.rect.top
             self.digZone.left = self.rect.right
+            self.inflateZone.top = self.rect.top
+            self.inflateZone.left = self.rect.right
+            self.inflateImage = self.inflateImageX
+            self.inflateZone = self.inflateImage.get_rect()
             self.inflateZone.top = self.rect.top
             self.inflateZone.left = self.rect.right
             self.state = "right"
