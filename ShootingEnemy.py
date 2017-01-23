@@ -83,36 +83,36 @@ class ShootingEnemy(Enemy):
                     self.decideDirection()
         self.animate()
 
-if __name__ == "__main__":
-    pygame.init()
+#if __name__ == "__main__":
+    #pygame.init()
 
-    clock = pygame.time.Clock()
+    #clock = pygame.time.Clock()
 
-    width = 768
-    height = 640
-    size = width, height
-    screen = pygame.display.set_mode(size)
+    #width = 768
+    #height = 640
+    #size = width, height
+    #screen = pygame.display.set_mode(size)
 
-    e = ShootingEnemy(0, [200,200])
-    down = False
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                down = True
-            if event.type == pygame.MOUSEBUTTONUP:
-                down = False
+    #e = ShootingEnemy(0, [200,200])
+    #down = False
+    #while True:
+        #for event in pygame.event.get():
+            #if event.type == pygame.QUIT: sys.exit()
+            #if event.type == pygame.MOUSEBUTTONDOWN:
+                #down = True
+            #if event.type == pygame.MOUSEBUTTONUP:
+                #down = False
 
-            if down:
-                bgColor = 0,0,0
+            #if down:
+                #bgColor = 0,0,0
 
-                screen.fill(bgColor)
-                screen.blit(e.imageSLeft, e.rect)
-            else:
-                bgColor = 0,0,0
+                #screen.fill(bgColor)
+                #screen.blit(e.imageSLeft, e.rect)
+            #else:
+                #bgColor = 0,0,0
 
-                screen.fill(bgColor)
-                screen.blit(e.imageLeft, e.rect)
+                #screen.fill(bgColor)
+                #screen.blit(e.imageLeft, e.rect)
 
-            pygame.display.flip()
-            clock.tick(60)
+            #pygame.display.flip()
+            #clock.tick(60)

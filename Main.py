@@ -7,6 +7,7 @@ from Dirt import *
 from Timer import *
 from Score import *
 from Level import *
+from Background import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -18,6 +19,7 @@ screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
 level = Level("Digger level1.lvl", 11)
+BG = Background(size)
 
 enemies = level.enemies
 print len(enemies)
@@ -71,6 +73,7 @@ while True:
         
     bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
+    screen.blit(BG.image, BG.rect)
     for enemy in enemies:
         screen.blit(enemy.image, enemy.rect)
     screen.blit(player.image, player.rect)

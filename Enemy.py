@@ -44,10 +44,10 @@ class Enemy():
             if self.rect.left % self.size == 0:
                 #print "left/right", self.rect.center[0]
                 self.decideDirection()
-        else:     #moving up/down
-            if self.rect.top % self.size == 0:
+            else:     #moving up/down
+                if self.rect.top % self.size == 0:
                 #print "left/right", self.rect.center[1]
-                self.decideDirection()
+                    self.decideDirection()
         self.animate()
      
     def decideDirection(self):
