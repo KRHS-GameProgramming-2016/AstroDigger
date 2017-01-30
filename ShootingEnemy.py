@@ -11,7 +11,7 @@ class ShootingEnemy(Enemy):
         self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Beatbox Right.png")
         self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Beatbox Up.png")
         self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Beatbox Down.png")
-                
+
 
         self.imageLeft = pygame.transform.scale(self.imageLeft, [self.size,self.size])
         self.imageRight = pygame.transform.scale(self.imageRight, [self.size,self.size])
@@ -55,7 +55,7 @@ class ShootingEnemy(Enemy):
                 self.state = "left"
                 self.shootImage = self.shootXImage
                 self.shootZone = self.shootImage.get_rect(midright = self.rect.midleft)
-    
+
     def shoot(self, player):
         if self.shootZone.right > player.rect.left and self.shootZone.left < player.rect.right:
             if self.shootZone.bottom > player.rect.top and self.shootZone.top < player.rect.bottom:

@@ -50,16 +50,13 @@ while True:
                 player.go("stop right")
             if event.key == pygame.K_LEFT:
                 player.go("stop left")
-        if len(enemies) == 0:
-            level += 1
-            
-    
+
     player.screenCollide(width)
     for enemy in enemies:
         enemy.screenCollide(size)
         player.enemyCollide(enemy)
         enemy.playerCollide(player)
-    
+
     for dirt in dirts:
         player.dirtCollide(dirt)
         player.digCollide(dirt)
@@ -69,22 +66,21 @@ while True:
             enemy.dirtCollide(dirt)
 
     timer.update()
-        
-    player.move() 
+
+    player.move()
     for enemy in enemies:
-        enemy.move()   
-        
+        enemy.move()
+
     bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
     screen.blit(BG.image, BG.rect)
     for enemy in enemies:
         screen.blit(enemy.image, enemy.rect)
-        if enemy.kind == "shooting":
-            screen.blit(enemy.shootImage, enemy.shootZone)
-            enemy.shoot(player)
     screen.blit(player.image, player.rect)
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
+    if enemy.kind == "shooting":
+            screen.blit(enemy.shootImage, enemy.shootZone)
     screen.blit(timer.image, timer.rect)
     pygame.display.flip()
     clock.tick(60)
