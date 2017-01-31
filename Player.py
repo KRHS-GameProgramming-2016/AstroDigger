@@ -44,6 +44,7 @@ class Player():
         
         self.inflating = False
         self.inflateHit = False
+        self.inflateTimeractive = False
         self.digging = False
         self.speedx = speed[0]
         self.speedy = speed[1]
@@ -194,6 +195,14 @@ class Player():
         print "inflate worked"
         self.inflating = True
         #self.inflateImage = self.inflateImagetrue
+        
+    def inflateTimer(self):
+        if self.inflateTimeractive == False:
+            self.startTime = time.clock()
+            self.inflateTimeractive == True
+        
+        
+        
         
     def dig(self):
         self.digging = True
