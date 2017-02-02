@@ -46,6 +46,8 @@ class Player():
         self.inflateHit = False
         self.inflateTimeractive = False
         self.digging = False
+        self.hit = False
+        
         self.speedx = speed[0]
         self.speedy = speed[1]
         self.didBounceX = False
@@ -192,7 +194,6 @@ class Player():
         return [x, y]
         
     def inflate(self):
-        print "inflate worked"
         self.inflating = True
         #self.inflateImage = self.inflateImagetrue
         
@@ -202,8 +203,13 @@ class Player():
             self.inflateTimeractive == True
         
         
+    def getHit(self):
+        self.prevImage = self.image
+        self.hit = True
         
-        
+    def hitUpdate(self):
+        self.hitFrame = 1
+    
     def dig(self):
         self.digging = True
         
