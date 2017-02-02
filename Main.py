@@ -62,6 +62,7 @@ while True:
         if player.inflateHit == True:
             enemy.speedx = 0
             enemy.speedy = 0
+            enemy.inflationLevel += 1
             enemy.inflationTime = timer.value
             player.inflateHit = False
         if enemy.inflationTime > 0:
@@ -69,7 +70,10 @@ while True:
                 enemy.speedx = enemy.maxSpeed
                 enemy.speedy = enemy.maxSpeed
                 enemy.inflationTime = 0
+                enemy.inflationLevel = 0
                 print enemy.inflationTime
+        if enemy.inflationLevel > 3:
+            enemies.remove(enemy)
     
     for dirt in dirts:
         player.dirtCollide(dirt)
