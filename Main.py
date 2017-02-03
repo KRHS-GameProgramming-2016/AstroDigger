@@ -18,11 +18,11 @@ size = width, height
 screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
-level = Level("Digger level1.lvl", 11)
+level = Level("Digger level1.lvl", 1)
+levelNumber = 1
 BG = Background(size)
 
 enemies = level.enemies
-print len(enemies)
 
 player = Player()
 dirts = level.dirts
@@ -78,10 +78,17 @@ while True:
                 print enemy.inflationTime
         if enemy.inflationLevel > 3:
             enemies.remove(enemy)
-            
+
+    if len(enemies) == 0:
+        levelNumber += 1
+        level = Level("Digger level1.lvl", levelNumber)
+        enemies = level.enemies
+        player = Player()
+        dirts = level.dirts
+
     for bullet in bullets:
         bullet.move()
-    
+
     for dirt in dirts:
         player.dirtCollide(dirt)
         player.digCollide(dirt)
@@ -114,3 +121,7 @@ while True:
     screen.blit(timer.image, timer.rect)
     pygame.display.flip()
     clock.tick(60)
+
+
+
+#Notes: When lenght of enemies = 0, it loads all of the lvls until it reaches 12, which doesn't exist

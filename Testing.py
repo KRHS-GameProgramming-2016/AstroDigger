@@ -96,6 +96,16 @@ while True:
                 bullets.remove(bullet)
 
     timer.update()
+    lives.update(playerLives)
+    
+    if player.hit == True:
+        if timer.value %2 == 0:
+            if player.blinkFrame < 6:
+                player.blinkImage()
+            if player.blinkFrame == 6:
+                player.hit = False
+                player.blinkFrame = 0
+        playerLives = player.lives
 
     player.move()
     for enemy in enemies:
