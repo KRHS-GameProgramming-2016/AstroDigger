@@ -5,6 +5,7 @@ from ShootingEnemy import *
 from Shade import *
 from Dirt import *
 from Timer import *
+from Lives import *
 from Score import *
 from Level import *
 from Background import *
@@ -25,8 +26,11 @@ enemies = level.enemies
 print len(enemies)
 
 player = Player()
+playerLives = player.lives
 dirts = level.dirts
-timer = Timer([width/2, 50])
+timer = Timer([width*.75, 50])
+lives = Lives([width*.25, 50])
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
@@ -71,7 +75,6 @@ while True:
                 enemy.speedy = enemy.maxSpeed
                 enemy.inflationTime = 0
                 enemy.inflationLevel = 0
-                print enemy.inflationTime
         if enemy.inflationLevel > 3:
             enemies.remove(enemy)
     
@@ -84,6 +87,7 @@ while True:
             enemy.dirtCollide(dirt)
 
     timer.update()
+    lives.update(playerLives)
 
     player.move()
     for enemy in enemies:
@@ -96,6 +100,7 @@ while True:
             if player.blinkFrame == 6:
                 player.hit = False
                 player.blinkFrame = 0
+        playerLives = player.lives
 
     bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
@@ -106,5 +111,6 @@ while True:
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
     screen.blit(timer.image, timer.rect)
+    screen.blit(lives.image, lives.rect)
     pygame.display.flip()
     clock.tick(60)

@@ -207,6 +207,7 @@ class Player():
         
     def blinkImage(self):
         if self.blinkFrame == 0:
+            self.lives -= 1
             self.prevImage = self.image
             self.blinkFrame = 1
             
@@ -216,7 +217,6 @@ class Player():
         if self.blinkFrame > 0:
             if self.blinkFrame % 2 == 0:
                 self.image = self.blinkFrame2
-                print "blink work"
             if self.blinkFrame % 2 != 0:
                 self.image = self.blinkFrame1
             self.blinkFrame += 1
