@@ -1,4 +1,4 @@
-import pygame, sys, math, random
+import pygame, sys, math, random, time
 from Enemy import *
 from Bfire import *
 class ShootingEnemy(Enemy):
@@ -26,7 +26,10 @@ class ShootingEnemy(Enemy):
         self.notStopped = True
 
         self.decideDirection()
-
+        
+        
+        self.shootTimerMax = 3*60
+        self.shootTimer = self.shootTimerMax
 
     def decideDirection(self):
         d = random.randint(0,3)
@@ -60,10 +63,17 @@ class ShootingEnemy(Enemy):
         if self.shootZone.right > player.rect.left and self.shootZone.left < player.rect.right:
             if self.shootZone.bottom > player.rect.top and self.shootZone.top < player.rect.bottom:
                 self.notStopped = False
-                return True
+                if self.shootTimer < self.shootTimerMax:
+                    self.shootTimer += 1
+                    return False
+                else:
+                    self.shootTimer = 0
+                    return True
         self.notStopped = True
+        if self.shootTimer < self.shootTimerMax:
+            self.shootTimer += 1
         return False
-
+        
 
     def move(self):
         self.didBounceX = False

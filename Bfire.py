@@ -37,3 +37,11 @@ class Bfire():
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
                 self.ded = True
+                
+    def screenCollide(self, screenSize):
+        screenWidth = screenSize[0]
+        screenHeight = screenSize[1]
+        if self.rect.top < 0 or self.rect.bottom > screenHeight:
+            if self.rect.center[0] > screenWidth:
+                self.ded = True
+

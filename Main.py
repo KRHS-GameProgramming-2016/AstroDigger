@@ -27,6 +27,7 @@ print len(enemies)
 player = Player()
 dirts = level.dirts
 timer = Timer([width/2, 50])
+bullets = []
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
@@ -59,6 +60,9 @@ while True:
         player.enemyCollide(enemy)
         enemy.playerCollide(player)
         player.inflateCollide(enemy)
+        if enemy.kind == "shooting":
+            if enemy.shoot(player):
+                bullets += [Bfire(enemy.state, enemy.rect.center)]
         if player.inflateHit == True:
             enemy.speedx = 0
             enemy.speedy = 0
@@ -74,6 +78,9 @@ while True:
                 print enemy.inflationTime
         if enemy.inflationLevel > 3:
             enemies.remove(enemy)
+            
+    for bullet in bullets:
+        bullet.move()
     
     for dirt in dirts:
         player.dirtCollide(dirt)
@@ -82,6 +89,11 @@ while True:
             dirts.remove(dirt)
         for enemy in enemies:
             enemy.dirtCollide(dirt)
+        for bullet in bullets:
+            bullet.dirtCollide(dirt)
+            bullet.screenCollide(size)
+            if bullet.ded == True:
+                bullets.remove(bullet)
 
     timer.update()
 
@@ -92,6 +104,8 @@ while True:
     bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
     screen.blit(BG.image, BG.rect)
+    for bullet in bullets:
+        screen.blit(bullet.image, bullet.rect)
     for enemy in enemies:
         screen.blit(enemy.image, enemy.rect)
     screen.blit(player.image, player.rect)
