@@ -1,10 +1,13 @@
 import  pygame, sys, math
 from Player import *
 from Enemy import *
+from ShootingEnemy import *
+from Shade import *
 from Dirt import *
 from Timer import *
 from Score import *
 from Level import *
+from Background import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -16,6 +19,7 @@ screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
 level = Level("Digger level1.lvl", 11)
+BG = Background(size)
 
 enemies = level.enemies
 print len(enemies)
@@ -48,13 +52,29 @@ while True:
                 player.go("stop right")
             if event.key == pygame.K_LEFT:
                 player.go("stop left")
-                
+
     player.screenCollide(width)
     for enemy in enemies:
         enemy.screenCollide(size)
+        player.enemyCollide(enemy)
+        enemy.playerCollide(player)
         player.inflateCollide(enemy)
-        if enemy.inflation > 0:
-            enemy.speed = [0, 0]
+        if player.inflateHit == True:
+            enemy.speedx = 0
+            enemy.speedy = 0
+            enemy.inflationLevel += 1
+            enemy.inflationTime = timer.value
+            player.inflateHit = False
+        if enemy.inflationTime > 0:
+            if (timer.value - enemy.inflationTime) > 3:
+                enemy.speedx = enemy.maxSpeed
+                enemy.speedy = enemy.maxSpeed
+                enemy.inflationTime = 0
+                enemy.inflationLevel = 0
+                print enemy.inflationTime
+        if enemy.inflationLevel > 3:
+            enemies.remove(enemy)
+    
     for dirt in dirts:
         player.dirtCollide(dirt)
         player.digCollide(dirt)
@@ -62,21 +82,27 @@ while True:
             dirts.remove(dirt)
         for enemy in enemies:
             enemy.dirtCollide(dirt)
-            player.inflateCollide(enemy)
-            player.enemyCollide(enemy)
-    
+
     timer.update()
-        
-    player.move() 
+
+    player.move()
     for enemy in enemies:
-        enemy.move()   
-        
-    bgColor = r,g,b = 0,255,0
+        enemy.move()
+    
+    if player.hit == True:
+        if timer.value %2 == 0:
+            if player.blinkFrame < 6:
+                player.blinkImage()
+            if player.blinkFrame == 6:
+                player.hit = False
+                player.blinkFrame = 0
+
+    bgColor = r,g,b = 0,0,0
     screen.fill(bgColor)
+    screen.blit(BG.image, BG.rect)
     for enemy in enemies:
         screen.blit(enemy.image, enemy.rect)
     screen.blit(player.image, player.rect)
-    screen.blit(player.inflateImage, player.inflateZone)
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
     screen.blit(timer.image, timer.rect)

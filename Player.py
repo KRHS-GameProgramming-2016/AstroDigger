@@ -9,6 +9,7 @@ class Player():
         self.imageUpright = pygame.image.load("Resources/Player/Player Upright.png")
         self.imageDownleft = pygame.image.load("Resources/Player/Player Downleft.png")
         self.imageDownright = pygame.image.load("Resources/Player/Player Downright.png")
+        self.blankImage = pygame.image.load("Resources/Player/blank.png")
         self.digImage = pygame.image.load("Resources/digZone.png")
         self.inflateImageY = pygame.image.load("Resources/Enemy/ShootZoneY.png")
         self.inflateImageX = pygame.image.load("Resources/Enemy/ShootZoneX.png")
@@ -62,6 +63,7 @@ class Player():
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
         self.animationTimerMax = .2 * 60 #seconds * 60 fps
+        self.blinkFrame = 0
       
     def animate(self):
         if self.prevState != self.state:
@@ -203,9 +205,21 @@ class Player():
             self.inflateTimeractive == True
         
         
-    def getHit(self):
-        self.prevImage = self.image
-        self.hit = True
+    def blinkImage(self):
+        if self.blinkFrame == 0:
+            self.prevImage = self.image
+            self.blinkFrame = 1
+            
+        self.blinkFrame1 = self.prevImage
+        self.blinkFrame2 = self.blankImage
+        
+        if self.blinkFrame > 0:
+            if self.blinkFrame % 2 == 0:
+                self.image = self.blinkFrame2
+                print "blink work"
+            if self.blinkFrame % 2 != 0:
+                self.image = self.blinkFrame1
+            self.blinkFrame += 1
         
     def hitUpdate(self):
         self.hitFrame = 1

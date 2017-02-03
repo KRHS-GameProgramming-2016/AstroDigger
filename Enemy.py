@@ -107,6 +107,7 @@ class Enemy():
                     self.speedx = -self.speedx
                     self.speedy = -self.speedy
                     self.move()
+                    other.hit = True
 
 
     def dist(self, pt):
