@@ -1,22 +1,47 @@
 import pygame, math, sys
+from ShootingEnemy import *
 
 class Bfire():
-    def __init__(self, speed=0, pos=[0,0], size=64):
-        self.imageLeft = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Left.png")
-        self.imageRight = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Right.png")
-        self.imageUp = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Up.png")
-        self.imageDown = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Down.png")
+    def __init__(self, state, pos=[0,0], size=64):
+        self.maxSpeed = 2
+        self.size = size
+        if state == "left":
+            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Left.png")
+            #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
+            self.speed = [-self.maxSpeed, 0]
+        elif state == "right":
+            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Right.png")
+            #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
+            self.speed = [self.maxSpeed, 0]
+        elif state == "up":
+            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Up.png")
+            #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
+            self.speed = [0, -self.maxSpeed]
+        else:
+            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Down.png")
+            #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
+            self.speed = [0, self.maxSpeed]
 
-        self.imageLeft = pygame.transform.scale(self.imageLeft, [self.size,self.size])
-        self.imageRight = pygame.transform.scale(self.imageRight, [self.size,self.size])
-        self.imageUp = pygame.transform.scale(self.imageUp, [self.size,self.size])
-        self.imageDown = pygame.transform.scale(self.imageDown, [self.size,self.size])
+        self.image = pygame.transform.scale(self.image, [self.size,self.size])
         self.rect = self.image.get_rect(center = pos)
-        self.image = self.imageRight
 
-        self.speed = speed
+        
         self.size = size
         self.pos = pos
+        self.ded = False
 
-    def move(speed):
-        pass
+    def move(self):
+        self.rect = self.rect.move(self.speed)
+    
+    def dirtCollide(self, other):
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                self.ded = True
+                
+    def screenCollide(self, screenSize):
+        screenWidth = screenSize[0]
+        screenHeight = screenSize[1]
+        if self.rect.top < 0 or self.rect.bottom > screenHeight:
+            if self.rect.center[0] > screenWidth:
+                self.ded = True
+

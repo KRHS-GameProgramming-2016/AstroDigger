@@ -69,7 +69,7 @@ class Level():
                                   ]
 
                 if c in "z" :       #Shade
-                    self.enemies += [Shade(32,
+                    self.enemies += [Shade(4,
                                        [x*self.tileSize + self.tileSize/2,
                                         y*self.tileSize + self.tileSize/2],
                                        self.tileSize)

@@ -1,4 +1,4 @@
-import pygame, sys, math
+import pygame, sys, math, time
 
 class Player():
     
@@ -9,10 +9,11 @@ class Player():
         self.imageUpright = pygame.image.load("Resources/Player/Player Upright.png")
         self.imageDownleft = pygame.image.load("Resources/Player/Player Downleft.png")
         self.imageDownright = pygame.image.load("Resources/Player/Player Downright.png")
+        self.blankImage = pygame.image.load("Resources/Player/blank.png")
         self.digImage = pygame.image.load("Resources/digZone.png")
         self.inflateImageY = pygame.image.load("Resources/Enemy/ShootZoneY.png")
         self.inflateImageX = pygame.image.load("Resources/Enemy/ShootZoneX.png")
-        self.inflateImage = pygame.image.load("Resources/Enemy/ShootZoneX.png")
+        self.inflateImage = self.inflateImageX
         self.size = size
         
         #self.inflateImage = self.inflateImageFalse
@@ -43,8 +44,11 @@ class Player():
         self.inflateZone.topleft = self.rect.topright
         
         self.inflating = False
-        self.inflationLevel = 0
+        self.inflateHit = False
+        self.inflateTimeractive = False
         self.digging = False
+        self.hit = False
+        
         self.speedx = speed[0]
         self.speedy = speed[1]
         self.didBounceX = False
@@ -59,6 +63,7 @@ class Player():
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
         self.animationTimerMax = .2 * 60 #seconds * 60 fps
+        self.blinkFrame = 0
       
     def animate(self):
         if self.prevState != self.state:
@@ -150,24 +155,28 @@ class Player():
     def dirtCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
                 if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                    self.speedx = -self.speedx
-                    self.speedy = -self.speedy
+                    if not self.didBounceX:
+                        self.speedx = -self.speedx
+                        self.didBounceX = True
+                    if not self.didBounceY:
+                        self.speedy = -self.speedy
+                        self.didBounceX = True
                     self.move()
                     self.speedx = 0
-                    self.didBounceX = True
                     self.speedy = 0
-                    self.didBounceY = True
                     
     def enemyCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
                 if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                    self.speedx = -self.speedx
-                    self.speedy = -self.speedy
+                    if not self.didBounceX:
+                        self.speedx = -self.speedx
+                        self.didBounceX = True
+                    if not self.didBounceY:
+                        self.speedy = -self.speedy
+                        self.didBounceX = True
                     self.move()
                     self.speedx = 0
-                    self.didBounceX = True
                     self.speedy = 0
-                    self.didBounceY = True
     
     def screenCollide(self, screenWidth):
         if self.rect.center[0] > screenWidth:
@@ -187,10 +196,34 @@ class Player():
         return [x, y]
         
     def inflate(self):
-        print "inflate worked"
         self.inflating = True
         #self.inflateImage = self.inflateImagetrue
         
+    def inflateTimer(self):
+        if self.inflateTimeractive == False:
+            self.startTime = time.clock()
+            self.inflateTimeractive == True
+        
+        
+    def blinkImage(self):
+        if self.blinkFrame == 0:
+            self.lives -= 1
+            self.prevImage = self.image
+            self.blinkFrame = 1
+            
+        self.blinkFrame1 = self.prevImage
+        self.blinkFrame2 = self.blankImage
+        
+        if self.blinkFrame > 0:
+            if self.blinkFrame % 2 == 0:
+                self.image = self.blinkFrame2
+            if self.blinkFrame % 2 != 0:
+                self.image = self.blinkFrame1
+            self.blinkFrame += 1
+        
+    def hitUpdate(self):
+        self.hitFrame = 1
+    
     def dig(self):
         self.digging = True
         
@@ -213,9 +246,11 @@ class Player():
                     if self.state == "up" or self.state == "down": #up or down dig
                         if self.inflateZone.right - enemy.rect.left > self.size[0] / 2: 
                             if enemy.rect.right - self.inflateZone.left > self.size[0] / 2:
-                                enemy.isInflating = True
+                                self.inflateHit = True
+                                self.inflating = False
                     elif self.state == "left" or self.state == "right": #left or right dig
                         if self.inflateZone.bottom - enemy.rect.top > self.size[1] / 2: #if the distance between the inflateZone bottom and the enemy top is less than half the size
                             if enemy.rect.bottom - self.inflateZone.top > self.size[1] / 2:
-                                enemy.isInflating = True
+                                self.inflateHit = True
+                                self.inflating = False
 
