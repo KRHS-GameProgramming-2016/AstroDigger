@@ -44,4 +44,10 @@ class Bfire():
         if self.rect.top < 0 or self.rect.bottom > screenHeight:
             if self.rect.center[0] > screenWidth:
                 self.ded = True
+                
+    def playerCollide(self, other):
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+                if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                    other.hit = True
+                    self.ded = True
 

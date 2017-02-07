@@ -8,6 +8,7 @@ from Timer import *
 from Score import *
 from Level import *
 from Background import *
+from Lives import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -23,12 +24,15 @@ levelNumber = 1
 BG = Background(size)
 
 enemies = level.enemies
+print len(enemies)
 
 player = Player()
 dirts = level.dirts
-timer = Timer([width/2, 50])
+playerLives = player.lives
+timer = Timer([width*.75, 50])
+lives = Lives([width*.25, 50])
 bullets = []
-while True:
+while player.lives > 0:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
         if event.type == pygame.KEYDOWN:
@@ -78,17 +82,19 @@ while True:
                 print enemy.inflationTime
         if enemy.inflationLevel > 3:
             enemies.remove(enemy)
-
+    
     if len(enemies) == 0:
         levelNumber += 1
         level = Level("Digger level1.lvl", levelNumber)
         enemies = level.enemies
         player = Player()
         dirts = level.dirts
+        
 
+            
     for bullet in bullets:
         bullet.move()
-
+    
     for dirt in dirts:
         player.dirtCollide(dirt)
         player.digCollide(dirt)
@@ -99,10 +105,21 @@ while True:
         for bullet in bullets:
             bullet.dirtCollide(dirt)
             bullet.screenCollide(size)
+            bullet.playerCollide(player)
             if bullet.ded == True:
                 bullets.remove(bullet)
 
     timer.update()
+    lives.update(playerLives)
+    
+    if player.hit == True:
+        if timer.value %2 == 0:
+            if player.blinkFrame < 6:
+                player.blinkImage()
+            if player.blinkFrame == 6:
+                player.hit = False
+                player.blinkFrame = 0
+        playerLives = player.lives
 
     player.move()
     for enemy in enemies:
@@ -119,9 +136,6 @@ while True:
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
     screen.blit(timer.image, timer.rect)
+    screen.blit(lives.image, lives.rect)
     pygame.display.flip()
     clock.tick(60)
-
-
-
-#Notes: When lenght of enemies = 0, it loads all of the lvls until it reaches 12, which doesn't exist

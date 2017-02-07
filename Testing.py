@@ -8,6 +8,7 @@ from Timer import *
 from Score import *
 from Level import *
 from Background import *
+from Lives import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -18,7 +19,8 @@ size = width, height
 screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
-level = Level("Digger level1.lvl", 11)
+level = Level("Digger level1.lvl", 1)
+levelNumber = 1
 BG = Background(size)
 
 enemies = level.enemies
@@ -26,9 +28,11 @@ print len(enemies)
 
 player = Player()
 dirts = level.dirts
-timer = Timer([width/2, 50])
+playerLives = player.lives
+timer = Timer([width*.75, 50])
+lives = Lives([width*.25, 50])
 bullets = []
-while True:
+while player.lives > 0:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
         if event.type == pygame.KEYDOWN:
@@ -78,6 +82,15 @@ while True:
                 print enemy.inflationTime
         if enemy.inflationLevel > 3:
             enemies.remove(enemy)
+    
+    if len(enemies) == 0:
+        levelNumber += 1
+        level = Level("Digger level1.lvl", levelNumber)
+        enemies = level.enemies
+        player = Player()
+        dirts = level.dirts
+        
+
             
     for bullet in bullets:
         bullet.move()
@@ -92,6 +105,7 @@ while True:
         for bullet in bullets:
             bullet.dirtCollide(dirt)
             bullet.screenCollide(size)
+            bullet.playerCollide(player)
             if bullet.ded == True:
                 bullets.remove(bullet)
 
@@ -122,5 +136,6 @@ while True:
     for dirt in dirts:
         screen.blit(dirt.image, dirt.rect)
     screen.blit(timer.image, timer.rect)
+    screen.blit(lives.image, lives.rect)
     pygame.display.flip()
     clock.tick(60)
