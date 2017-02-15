@@ -26,9 +26,13 @@ class Enemy():
         self.didBounceY = False
         self.inflationTime = 0
         self.inflationLevel = 0
+        self.inflationMaxLevel = 3
+        self.inflationMaxTime = 3
 
         self.state = "right"
         self.prevState = "right"
+        
+        
 
         #self.frame = 0
         #self.maxFrame = len(self.images) - 1

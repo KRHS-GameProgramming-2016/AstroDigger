@@ -22,6 +22,7 @@ class Shade(Enemy):
         self.didBounceY = False
         self.inflationTime = 0
         self.inflationLevel = 0
+        self.inflationMax = 10
 
         self.state = "right"
         self.prevState = "right"

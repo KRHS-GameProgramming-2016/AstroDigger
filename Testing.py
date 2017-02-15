@@ -19,7 +19,7 @@ size = width, height
 screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
-level = Level("Digger level1.lvl", 1)
+level = Level("Digger level1.lvl", 12)
 levelNumber = 1
 BG = Background(size)
 
@@ -80,21 +80,18 @@ while player.lives > 0:
                 enemy.inflationTime = 0
                 enemy.inflationLevel = 0
                 print enemy.inflationTime
-        if enemy.inflationLevel > 3:
+        if enemy.inflationLevel > enemy.inflationMax:
             enemies.remove(enemy)
-    
     if len(enemies) == 0:
         levelNumber += 1
         level = Level("Digger level1.lvl", levelNumber)
         enemies = level.enemies
         player = Player()
         dirts = level.dirts
-        
 
-            
     for bullet in bullets:
         bullet.move()
-    
+
     for dirt in dirts:
         player.dirtCollide(dirt)
         player.digCollide(dirt)
@@ -111,7 +108,7 @@ while player.lives > 0:
 
     timer.update()
     lives.update(playerLives)
-    
+
     if player.hit == True:
         if timer.value %2 == 0:
             if player.blinkFrame < 6:
