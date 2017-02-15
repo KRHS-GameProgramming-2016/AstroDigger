@@ -48,6 +48,14 @@ while player.lives > 0:
                 player.dig()
             if event.key == pygame.K_SPACE:
                 player.inflate()
+            #for testing purposes DELETE LATER
+            if event.key == pygame.K_w:
+                levelNumber += 1
+                level = Level("Digger level1.lvl", levelNumber)
+                enemies = level.enemies
+                player = Player()
+                dirts = level.dirts
+            
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.go("stop up")
@@ -73,8 +81,8 @@ while player.lives > 0:
             enemy.inflationLevel += 1
             enemy.inflationTime = timer.value
             player.inflateHit = False
-        if enemy.inflationTime > enemy.inflationMaxTime:
-            if (timer.value - enemy.inflationTime) > 3:
+        if enemy.inflationTime > 0:
+            if (timer.value - enemy.inflationTime) > enemy.inflationMaxTime:
                 enemy.speedx = enemy.maxSpeed
                 enemy.speedy = enemy.maxSpeed
                 enemy.inflationTime = 0
