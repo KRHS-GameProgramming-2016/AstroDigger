@@ -26,8 +26,8 @@ class Enemy():
         self.didBounceY = False
         self.inflationTime = 0
         self.inflationLevel = 0
-        self.inflationMaxLevel = 3
-        self.inflationMaxTime = 3
+        self.inflationMaxLevel = 5
+        self.inflationMaxTime = 2
 
         self.state = "right"
         self.prevState = "right"

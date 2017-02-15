@@ -30,6 +30,8 @@ class ShootingEnemy(Enemy):
         
         self.shootTimerMax = 3*60
         self.shootTimer = self.shootTimerMax
+        self.inflationMaxLevel = 3
+        self.inflationMaxTime = 3
 
     def decideDirection(self):
         d = random.randint(0,3)
