@@ -73,14 +73,14 @@ while player.lives > 0:
             enemy.inflationLevel += 1
             enemy.inflationTime = timer.value
             player.inflateHit = False
-        if enemy.inflationTime > 0:
+        if enemy.inflationTime > enemy.inflationMaxTime:
             if (timer.value - enemy.inflationTime) > 3:
                 enemy.speedx = enemy.maxSpeed
                 enemy.speedy = enemy.maxSpeed
                 enemy.inflationTime = 0
                 enemy.inflationLevel = 0
                 print enemy.inflationTime
-        if enemy.inflationLevel > 3:
+        if enemy.inflationLevel > enemy.inflationMaxLevel:
             enemies.remove(enemy)
     
     if len(enemies) == 0:

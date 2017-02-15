@@ -48,6 +48,7 @@ class Player():
         self.inflateTimeractive = False
         self.digging = False
         self.hit = False
+        self.inDirt = False
         
         self.speedx = speed[0]
         self.speedy = speed[1]
@@ -109,6 +110,7 @@ class Player():
             self.inflateZone.left = self.rect.left
             self.inflateZone.bottom = self.rect.top
             self.state = "up"
+            self.move()
         if direction == "down":
             self.speedy = self.maxSpeed
             self.digZone.left = self.rect.left
@@ -118,6 +120,7 @@ class Player():
             self.inflateZone.left = self.rect.left
             self.inflateZone.top = self.rect.bottom
             self.state = "down"
+            self.move()
         if direction == "left":
             self.speedx = -self.maxSpeed
             self.digZone.top = self.rect.top
@@ -127,6 +130,7 @@ class Player():
             self.inflateZone.top = self.rect.top
             self.inflateZone.right = self.rect.left
             self.state = "left"
+            self.move()
         if direction == "right":
             self.speedx = self.maxSpeed
             self.digZone.top = self.rect.top
@@ -138,6 +142,7 @@ class Player():
             self.inflateZone.top = self.rect.top
             self.inflateZone.left = self.rect.right
             self.state = "right"
+            self.move()
             
         if direction == "stop up":
             self.speedy = 0
@@ -153,30 +158,29 @@ class Player():
             self.prevState = "right"
         
     def dirtCollide(self, other):
-        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
-                if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                    if not self.didBounceX:
-                        self.speedx = -self.speedx
-                        self.didBounceX = True
-                    if not self.didBounceY:
-                        self.speedy = -self.speedy
-                        self.didBounceX = True
+        if self.rect.right >= other.rect.left and self.rect.left <= other.rect.right:
+                if self.rect.bottom >= other.rect.top and self.rect.top <= other.rect.bottom:
+                    self.speedx = -self.speedx
+                    self.speedy = -self.speedy
                     self.move()
                     self.speedx = 0
+                    self.didBounceX = True
                     self.speedy = 0
+                    self.didBounceY = True
                     
     def enemyCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
                 if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                    if not self.didBounceX:
-                        self.speedx = -self.speedx
-                        self.didBounceX = True
+                    self.speedx = -self.speedx
+                    self.move()
+                    self.speedy = 0
+                    self.didBounceX = True
                     if not self.didBounceY:
                         self.speedy = -self.speedy
+                        self.move()
+                        self.speedx = 0
                         self.didBounceX = True
-                    self.move()
-                    self.speedx = 0
-                    self.speedy = 0
+                    
     
     def screenCollide(self, screenWidth):
         if self.rect.center[0] > screenWidth:
