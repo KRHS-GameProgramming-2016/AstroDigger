@@ -9,6 +9,7 @@ from Score import *
 from Level import *
 from Background import *
 from Lives import *
+from LevelNumber import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -31,6 +32,7 @@ dirts = level.dirts
 playerLives = player.lives
 timer = Timer([width*.75, 50])
 lives = Lives([width*.25, 50])
+levelnumberShow = LevelNumber([width*.25, 100])
 bullets = []
 while player.lives > 0:
     for event in pygame.event.get():
@@ -119,6 +121,7 @@ while player.lives > 0:
 
     timer.update()
     lives.update(playerLives)
+    levelnumberShow.update(levelNumber)
     
     if player.hit == True:
         if timer.value %2 == 0:
@@ -145,5 +148,6 @@ while player.lives > 0:
         screen.blit(dirt.image, dirt.rect)
     screen.blit(timer.image, timer.rect)
     screen.blit(lives.image, lives.rect)
+    screen.blit(levelnumberShow.image, levelnumberShow.rect)
     pygame.display.flip()
     clock.tick(60)
