@@ -32,7 +32,7 @@ playerLives = player.lives
 timer = Timer([width*.75, 50])
 lives = Lives([width*.25, 50])
 bullets = []
-while player.lives > 0:
+while True:#player.lives > 0:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
         if event.type == pygame.KEYDOWN:
@@ -104,7 +104,7 @@ while player.lives > 0:
             enemy.dirtCollide(dirt)
         for bullet in bullets:
             bullet.dirtCollide(dirt)
-            bullet.screenCollide(size)
+            bullet.screenCollide(sized)
             bullet.playerCollide(player)
             if bullet.ded == True:
                 bullets.remove(bullet)

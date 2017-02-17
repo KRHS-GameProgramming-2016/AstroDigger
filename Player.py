@@ -156,17 +156,25 @@ class Player():
         if direction == "stop right":
             self.speedx = 0
             self.prevState = "right"
-        
+                    
     def dirtCollide(self, other):
-        if self.rect.right >= other.rect.left and self.rect.left <= other.rect.right:
-                if self.rect.bottom >= other.rect.top and self.rect.top <= other.rect.bottom:
-                    self.speedx = -self.speedx
-                    self.speedy = -self.speedy
-                    self.move()
-                    self.speedx = 0
-                    self.didBounceX = True
-                    self.speedy = 0
-                    self.didBounceY = True
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+                if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                    diffX = self.rect.centerx - other.rect.centerx
+                    diffY = self.rect.centery - other.rect.centery
+                    if abs(diffX) > abs(diffY): #left right collide
+                        if diffX > 0: #left
+                            self.rect.left = other.rect.right + 1
+                        else:
+                            self.rect.right = other.rect.left - 1
+                        self.speedx = 0
+                    else:
+                        if diffY > 0: #below
+                            self.rect.top = other.rect.bottom + 1
+                        else:
+                            self.rect.bottom = other.rect.top - 1
+                        self.speedy = 0
+                        
                     
     def enemyCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
