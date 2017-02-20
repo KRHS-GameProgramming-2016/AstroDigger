@@ -99,6 +99,8 @@ while player.lives > 0:
         enemies = level.enemies
         player = Player()
         dirts = level.dirts
+        player.lives = 5
+        playerLives = player.lives
         
 
             
@@ -130,6 +132,7 @@ while player.lives > 0:
             if player.blinkFrame == 6:
                 player.hit = False
                 player.blinkFrame = 0
+                player.respawn()
         playerLives = player.lives
 
     player.move()
