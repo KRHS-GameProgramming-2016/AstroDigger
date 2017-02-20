@@ -27,7 +27,7 @@ class Lives(Score):
             if self.value == 3:
                 self.image = self.threeLivesImage
             if self.value == 2:
-                self.image = self.fourLivesImage
+                self.image = self.twoLivesImage
             if self.value == 1:
                 self.image = self.oneLifeImage
             self.rect = self.image.get_rect(center = self.rect.center)
