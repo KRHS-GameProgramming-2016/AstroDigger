@@ -2,7 +2,7 @@ import pygame, sys, math, time
 
 class Player():
     
-    def __init__(self,  size=[52, 56], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
+    def __init__(self,  size=[52, 56], maxSpeed =5 , speed=[0, 0], pos=[0,64]):
         self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
         self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
         self.imageUpleft = pygame.image.load("Resources/Player/Player Upleft.png")
@@ -175,7 +175,6 @@ class Player():
                             self.rect.bottom = other.rect.top - 1
                         self.speedy = 0
                         
-                    
     def enemyCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
                 if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
@@ -189,6 +188,25 @@ class Player():
                         self.speedx = 0
                         self.didBounceX = True
                     
+    def enemyCollide(self, other):
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+                if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                    diffX = self.rect.centerx - other.rect.centerx
+                    diffY = self.rect.centery - other.rect.centery
+                    if abs(diffX) > abs(diffY): #left right collide
+                        if diffX > 0: #left
+                            self.rect.left = other.rect.right + 1
+                        else:
+                            self.rect.right = other.rect.left - 1
+                        self.speedx = 0
+                        self.hit = True
+                    else:
+                        if diffY > 0: #below
+                            self.rect.top = other.rect.bottom + 1
+                        else:
+                            self.rect.bottom = other.rect.top - 1
+                        self.speedy = 0
+                        self.hit = True
     
     def screenCollide(self, screenWidth):
         if self.rect.center[0] > screenWidth:
@@ -232,6 +250,11 @@ class Player():
             if self.blinkFrame % 2 != 0:
                 self.image = self.blinkFrame1
             self.blinkFrame += 1
+            
+    def respawn(self):
+        self.rect.top = 0
+        self.rect.left = 0
+        self.state = "right"
         
     def hitUpdate(self):
         self.hitFrame = 1
