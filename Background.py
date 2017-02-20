@@ -1,15 +1,25 @@
 import math, sys, pygame, random
-                                                             
-class Background():                                          
-    def __init__(self, size=None):                           
+
+class Background():
+    def __init__(self, size=None):
+        self.image = self.decideBackground()
         if size:
             self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
 
-    def decideBackground
-        b = random.randint(0,8)
-        if b == 0:
-            self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
+    def decideBackground(self):
+        images = ["Resources/Backgrounds/why.jpg",
+                  "Resources/Backgrounds/killmenow.jpg",
+                  "Resources/Backgrounds/killmeagain.jpg",
+                  "Resources/Backgrounds/killme.jpg",
+                  "Resources/Backgrounds/noplz.jpg",
+                  "Resources/Backgrounds/lel2.jpg",
+                  "Resources/Backgrounds/art.jpg",
+                  "Resources/Backgrounds/cool-and-good.jpg",
+                  "Resources/Backgrounds/ANGERY.jpg"]
+        b = random.randint(0, len(images)-1)
+        return pygame.image.load(images[b])
+        
 
 
 

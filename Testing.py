@@ -20,7 +20,7 @@ size = width, height
 screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
-level = Level("Digger level1.lvl", 12)
+level = Level("Digger level1.lvl", 1)
 levelNumber = 1
 BG = Background(size)
 
@@ -31,7 +31,7 @@ player = Player()
 dirts = level.dirts
 playerLives = player.lives
 timer = Timer([width*.85, 30])
-lives = Lives([width*.15, 30])
+lives = Lives([width*.18, 30])
 levelnumberShow = LevelNumber([width*.5, 30])
 bullets = []
 while player.lives > 0:
@@ -54,12 +54,14 @@ while player.lives > 0:
             if event.key == pygame.K_KP_PLUS:
                 levelNumber += 1
                 level = Level("Digger level1.lvl", levelNumber)
+                BG = Background(size)
                 enemies = level.enemies
                 player = Player()
                 dirts = level.dirts
             if event.key == pygame.K_KP_MINUS:
                 levelNumber -= 1
                 level = Level("Digger level1.lvl", levelNumber)
+                BG = Background(size)
                 enemies = level.enemies
                 player = Player()
                 dirts = level.dirts
@@ -105,6 +107,9 @@ while player.lives > 0:
         enemies = level.enemies
         player = Player()
         dirts = level.dirts
+        player.lives = 5
+        playerLives = player.lives
+        BG = Background(size)
         
 
             
@@ -136,6 +141,7 @@ while player.lives > 0:
             if player.blinkFrame == 6:
                 player.hit = False
                 player.blinkFrame = 0
+                player.respawn()
         playerLives = player.lives
 
     player.move()

@@ -93,7 +93,7 @@ while player.lives > 0:
         if enemy.inflationLevel > enemy.inflationMaxLevel:
             enemies.remove(enemy)
     
-    if len(enemies) == 0:
+if len(enemies) == 0:
         levelNumber += 1
         level = Level("Digger level1.lvl", levelNumber)
         enemies = level.enemies
@@ -101,6 +101,7 @@ while player.lives > 0:
         dirts = level.dirts
         player.lives = 5
         playerLives = player.lives
+        BG = Background(size)
         
 
             

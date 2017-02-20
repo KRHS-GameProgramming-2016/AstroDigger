@@ -48,7 +48,7 @@ class Level():
 
         for y,line in enumerate(lines):
             for x,c in enumerate(line):
-                if c in "12345" :       #levels of dirt
+                if c in "1234567890" :       #levels of dirt
                     self.dirts += [Dirt(c,
                                        [x*self.tileSize + self.tileSize/2,
                                         y*self.tileSize + self.tileSize/2],
