@@ -9,6 +9,7 @@ from Score import *
 from Level import *
 from Background import *
 from Lives import *
+from LevelNumber import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -19,7 +20,7 @@ size = width, height
 screen = pygame.display.set_mode(size)
 
 bgColor = 0,0,0
-level = Level("Digger level1.lvl", 1)
+level = Level("Digger level1.lvl", 12)
 levelNumber = 1
 BG = Background(size)
 
@@ -29,8 +30,9 @@ print len(enemies)
 player = Player()
 dirts = level.dirts
 playerLives = player.lives
-timer = Timer([width*.75, 50])
-lives = Lives([width*.25, 50])
+timer = Timer([width*.85, 30])
+lives = Lives([width*.15, 30])
+levelnumberShow = LevelNumber([width*.5, 30])
 bullets = []
 while player.lives > 0:
     for event in pygame.event.get():
@@ -48,6 +50,20 @@ while player.lives > 0:
                 player.dig()
             if event.key == pygame.K_SPACE:
                 player.inflate()
+
+            if event.key == pygame.K_KP_PLUS:
+                levelNumber += 1
+                level = Level("Digger level1.lvl", levelNumber)
+                enemies = level.enemies
+                player = Player()
+                dirts = level.dirts
+            if event.key == pygame.K_KP_MINUS:
+                levelNumber -= 1
+                level = Level("Digger level1.lvl", levelNumber)
+                enemies = level.enemies
+                player = Player()
+                dirts = level.dirts
+            
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.go("stop up")
@@ -73,8 +89,8 @@ while player.lives > 0:
             enemy.inflationLevel += 1
             enemy.inflationTime = timer.value
             player.inflateHit = False
-        if enemy.inflationTime > enemy.inflationMaxTime:
-            if (timer.value - enemy.inflationTime) > 3:
+        if enemy.inflationTime > 0:
+            if (timer.value - enemy.inflationTime) > enemy.inflationMaxTime:
                 enemy.speedx = enemy.maxSpeed
                 enemy.speedy = enemy.maxSpeed
                 enemy.inflationTime = 0
@@ -111,6 +127,7 @@ while player.lives > 0:
 
     timer.update()
     lives.update(playerLives)
+    levelnumberShow.update(levelNumber)
     
     if player.hit == True:
         if timer.value %2 == 0:
@@ -137,5 +154,6 @@ while player.lives > 0:
         screen.blit(dirt.image, dirt.rect)
     screen.blit(timer.image, timer.rect)
     screen.blit(lives.image, lives.rect)
+    screen.blit(levelnumberShow.image, levelnumberShow.rect)
     pygame.display.flip()
     clock.tick(60)
