@@ -2,7 +2,7 @@ import pygame, sys, math, time
 
 class Player():
     
-    def __init__(self,  size=[52, 56], maxSpeed =5 , speed=[0, 0], pos=[0,0]):
+    def __init__(self,  size=[52, 56], maxSpeed =5 , speed=[0, 0], pos=[0,64]):
         self.imageLeft = pygame.image.load("Resources/Player/Player Left.png")
         self.imageRight = pygame.image.load("Resources/Player/Player Right.png")
         self.imageUpleft = pygame.image.load("Resources/Player/Player Upleft.png")
@@ -175,20 +175,19 @@ class Player():
                             self.rect.bottom = other.rect.top - 1
                         self.speedy = 0
                         
-                    
     def enemyCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
                 if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                    self.speedx = -self.speedx
-                    self.move()
-                    self.speedy = 0
-                    self.didBounceX = True
-                    if not self.didBounceY:
-                        self.speedy = -self.speedy
-                        self.move()
-                        self.speedx = 0
-                        self.didBounceX = True
-                    
+                    self.hit = True
+                    #self.speedx = -self.speedx
+                    #self.move()
+                    #self.speedy = 0
+                    #self.didBounceX = True
+                    #if not self.didBounceY:
+                        #self.speedy = -self.speedy
+                        #self.move()
+                        #self.speedx = 0
+                        #self.didBounceX = True
     
     def screenCollide(self, screenWidth):
         if self.rect.center[0] > screenWidth:
@@ -232,6 +231,11 @@ class Player():
             if self.blinkFrame % 2 != 0:
                 self.image = self.blinkFrame1
             self.blinkFrame += 1
+            
+    def respawn(self):
+        self.rect.top = 0
+        self.rect.left = 0
+        self.state = "right"
         
     def hitUpdate(self):
         self.hitFrame = 1

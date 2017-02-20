@@ -32,7 +32,7 @@ playerLives = player.lives
 timer = Timer([width*.75, 50])
 lives = Lives([width*.25, 50])
 bullets = []
-while True:#player.lives > 0:
+while player.lives > 0:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
         if event.type == pygame.KEYDOWN:
@@ -89,6 +89,8 @@ while True:#player.lives > 0:
         enemies = level.enemies
         player = Player()
         dirts = level.dirts
+        player.lives = 5
+        playerLives = player.lives
         
 
             
@@ -119,6 +121,7 @@ while True:#player.lives > 0:
             if player.blinkFrame == 6:
                 player.hit = False
                 player.blinkFrame = 0
+                player.respawn()
         playerLives = player.lives
 
     player.move()

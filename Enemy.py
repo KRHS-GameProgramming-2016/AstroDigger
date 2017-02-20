@@ -112,6 +112,26 @@ class Enemy():
                     self.speedy = -self.speedy
                     self.move()
                     other.hit = True
+                    
+    #def playerCollide(self, other):
+        #if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+                #if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                    #diffX = self.rect.centerx - other.rect.centerx
+                    #diffY = self.rect.centery - other.rect.centery
+                    #if abs(diffX) > abs(diffY): #left right collide
+                        #if diffX > 0: #left
+                            #self.rect.left = other.rect.right + 1
+                        #else:
+                            #self.rect.right = other.rect.left - 1
+                        #self.speedx = 0
+                        #other.hit = True
+                    #else:
+                        #if diffY > 0: #below
+                            #self.rect.top = other.rect.bottom + 1
+                        #else:
+                            #self.rect.bottom = other.rect.top - 1
+                        #self.speedy = 0
+                        #other.hit = True
 
 
     def dist(self, pt):
