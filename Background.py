@@ -1,12 +1,21 @@
-import math, sys, pygame
-                                                             #Replace "noplz.jpg" with other background types :)
-class Background():                                          # |
-    def __init__(self, size=None):                           #\|/
-        self.image = pygame.image.load("Resources/Backgrounds/lel2.jpg")
+import math, sys, pygame, random
+                                                             
+class Background():                                          
+    def __init__(self, size=None):                           
         if size:
             self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
-#Types of Backgrounds you can choose
+
+    def decideBackground
+        b = random.randint(0,8)
+        if b == 0:
+            self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
+
+
+
+
+
+#Types of Backgrounds
 #why.jpg
 #killmenow.jpg
 #killmeagain.jpg
@@ -14,3 +23,5 @@ class Background():                                          # |
 #noplz.jpg
 #lel2.jpg
 #art.jpg
+#cool-and-good.jpg
+#ANGERY.jpg
