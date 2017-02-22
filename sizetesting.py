@@ -9,6 +9,7 @@ from Score import *
 from Level import *
 from Background import *
 from Lives import *
+from LevelNumber import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -30,7 +31,8 @@ player = Player()
 dirts = level.dirts
 playerLives = player.lives
 timer = Timer([width*.75, 50])
-lives = Lives([width*.25, 50])
+lives = Lives([150, 40])
+levelnumberShow = LevelNumber([width*.25, 100])
 bullets = []
 while player.lives > 0:
     for event in pygame.event.get():
@@ -48,6 +50,14 @@ while player.lives > 0:
                 player.dig()
             if event.key == pygame.K_SPACE:
                 player.inflate()
+            #for testing purposes DELETE LATER
+            if event.key == pygame.K_w:
+                levelNumber += 1
+                level = Level("Digger level1.lvl", levelNumber)
+                enemies = level.enemies
+                player = Player()
+                dirts = level.dirts
+            
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.go("stop up")
@@ -74,13 +84,13 @@ while player.lives > 0:
             enemy.inflationTime = timer.value
             player.inflateHit = False
         if enemy.inflationTime > 0:
-            if (timer.value - enemy.inflationTime) > 3:
+            if (timer.value - enemy.inflationTime) > enemy.inflationMaxTime:
                 enemy.speedx = enemy.maxSpeed
                 enemy.speedy = enemy.maxSpeed
                 enemy.inflationTime = 0
                 enemy.inflationLevel = 0
                 print enemy.inflationTime
-        if enemy.inflationLevel > 3:
+        if enemy.inflationLevel > enemy.inflationMaxLevel:
             enemies.remove(enemy)
     
     if len(enemies) == 0:
@@ -91,6 +101,7 @@ while player.lives > 0:
         dirts = level.dirts
         player.lives = 5
         playerLives = player.lives
+        BG = Background(size)
         
 
             
@@ -106,13 +117,14 @@ while player.lives > 0:
             enemy.dirtCollide(dirt)
         for bullet in bullets:
             bullet.dirtCollide(dirt)
-            bullet.screenCollide(sized)
+            bullet.screenCollide(size)
             bullet.playerCollide(player)
             if bullet.ded == True:
                 bullets.remove(bullet)
 
     timer.update()
     lives.update(playerLives)
+    levelnumberShow.update(levelNumber)
     
     if player.hit == True:
         if timer.value %2 == 0:
@@ -140,5 +152,6 @@ while player.lives > 0:
         screen.blit(dirt.image, dirt.rect)
     screen.blit(timer.image, timer.rect)
     screen.blit(lives.image, lives.rect)
+    screen.blit(levelnumberShow.image, levelnumberShow.rect)
     pygame.display.flip()
     clock.tick(60)

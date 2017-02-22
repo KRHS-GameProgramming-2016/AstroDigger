@@ -156,7 +156,7 @@ class Player():
         if direction == "stop right":
             self.speedx = 0
             self.prevState = "right"
-                    
+    
     def dirtCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
                 if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
@@ -189,7 +189,11 @@ class Player():
                         #self.speedx = 0
                         #self.didBounceX = True
     
-    def screenCollide(self, screenWidth):
+    def screenCollide(self, screenSize):
+        screenWidth = screenSize[0]
+        screenHeight = screenSize[1]
+        if self.rect.top < 0 or self.rect.bottom > screenHeight:
+            self.speedy = 0
         if self.rect.center[0] > screenWidth:
             self.rect.center = [0, self.rect.center[1]]
         elif self.rect.center[0] < 0:

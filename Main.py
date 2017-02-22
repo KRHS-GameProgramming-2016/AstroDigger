@@ -34,6 +34,7 @@ timer = Timer([width*.75, 50])
 lives = Lives([width*.25, 50])
 levelnumberShow = LevelNumber([width*.25, 100])
 bullets = []
+playerBullets = []
 while player.lives > 0:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
@@ -68,7 +69,7 @@ while player.lives > 0:
             if event.key == pygame.K_LEFT:
                 player.go("stop left")
 
-    player.screenCollide(width)
+    player.screenCollide(size)
     for enemy in enemies:
         enemy.screenCollide(size)
         player.enemyCollide(enemy)

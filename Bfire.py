@@ -2,25 +2,33 @@ import pygame, math, sys
 from ShootingEnemy import *
 
 class Bfire():
-    def __init__(self, state, pos=[0,0], size=64):
+    def __init__(self, kind, state, pos=[0,0], size=64):
         self.maxSpeed = 2
         self.size = size
-        if state == "left":
-            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Left.png")
-            #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
-            self.speed = [-self.maxSpeed, 0]
-        elif state == "right":
-            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Right.png")
-            #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
-            self.speed = [self.maxSpeed, 0]
-        elif state == "up":
-            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Up.png")
-            #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
-            self.speed = [0, -self.maxSpeed]
-        else:
-            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Down.png")
-            #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
-            self.speed = [0, self.maxSpeed]
+        if kind == "enemy":
+            if state == "left":
+                self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Left.png")
+                #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
+                self.speed = [-self.maxSpeed, 0]
+            elif state == "right":
+                self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Right.png")
+                #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
+                self.speed = [self.maxSpeed, 0]
+            elif state == "up":
+                self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Up.png")
+                #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
+                self.speed = [0, -self.maxSpeed]
+            else:
+                self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Down.png")
+                #self.image = pygame.image.load("Resources/Backgrounds/why.jpg")
+                self.speed = [0, self.maxSpeed]
+        if kind == "player":
+            if state == "right" or state == "left":
+                self.image = pygame.image.load("Resources/Player/simple bullet vertical.png")
+                self.speed = [self.maxSpeed, 0]
+            elif state == "up" or state == "down":
+                self.image = pygame.image.load("Resources/Player/simple bullet.png")
+                self.speed = [0, -self.maxSpeed]
 
         self.image = pygame.transform.scale(self.image, [self.size,self.size])
         self.rect = self.image.get_rect(center = pos)
