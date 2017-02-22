@@ -5,7 +5,7 @@ class Score():                                      #Edit these two
         self.value = 0                #                         |----------|          
         #http://www.1001fonts.com/bustin-jieber-font.html      \|/        \|/
         self.font = pygame.font.Font("Resources/Fonts/power-pixel-7/power_pixel-7.ttf", 40)
-        self.image = self.font.render("Score: " + str(self.value), True, (255,0,0))
+        self.image = self.font.render("Score: " + str(self.value), True, (0,0,255))
         self.rect = self.image.get_rect(center = pos)
 
 #Types of fonts
@@ -17,5 +17,5 @@ class Score():                                      #Edit these two
         self.value += amount
         if self.value <= 0:
             self.value = 0
-        self.image = self.font.render("Score: " + str(self.value), True, (255,0,0))
+        self.image = self.font.render("Score: " + str(self.value), True, (0,0,255))
         self.rect = self.image.get_rect(center = self.rect.center)

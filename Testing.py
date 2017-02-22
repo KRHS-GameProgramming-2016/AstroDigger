@@ -30,9 +30,9 @@ print len(enemies)
 player = Player()
 dirts = level.dirts
 playerLives = player.lives
-timer = Timer([width*.85, 30])
-lives = Lives([width*.18, 30])
-levelnumberShow = LevelNumber([width*.5, 30])
+timer = Timer([width*.75, 30])
+lives = Lives([width*.25, 50])
+levelnumberShow = LevelNumber([width*.75, 100])
 bullets = []
 while player.lives > 0:
     for event in pygame.event.get():
