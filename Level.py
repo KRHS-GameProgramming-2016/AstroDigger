@@ -74,7 +74,7 @@ class Level():
                                         y*self.tileSize + self.tileSize/2],
                                        self.tileSize)
                                   ]
-                    
+
 #Minimun speed = 1 | max = 64
 
 

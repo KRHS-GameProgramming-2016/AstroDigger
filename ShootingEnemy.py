@@ -7,26 +7,43 @@ class ShootingEnemy(Enemy):
         self.shootYImage = pygame.image.load("Resources/Enemy/ShootZoneY.png")
         self.speed = [speed, 0]
         Enemy.__init__(self, speed, pos, size)
-        self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Beatbox Left.png")
-        self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Beatbox Right.png")
-        self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Beatbox Up.png")
-        self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Beatbox Down.png")
+        self.imagesLeft = [pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Beatbox Left.png"), [self.size,self.size]),
+                           pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Beatbox Left2.png"), [self.size,self.size])]
+        self.imagesRight = [pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Beatbox Right.png"), [self.size,self.size]),
+                           pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Beatbox Right2.png"), [self.size,self.size])]
+        self.imagesUp = [pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Beatbox Up.png"), [self.size,self.size]),
+                           pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Beatbox Up2.png"), [self.size,self.size])]
+        self.imagesDown = [pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Beatbox Down.png"), [self.size,self.size]),
+                           pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Beatbox Down2.png"), [self.size,self.size])]
 
-
-        self.imageLeft = pygame.transform.scale(self.imageLeft, [self.size,self.size])
-        self.imageRight = pygame.transform.scale(self.imageRight, [self.size,self.size])
-        self.imageUp = pygame.transform.scale(self.imageUp, [self.size,self.size])
-        self.imageDown = pygame.transform.scale(self.imageDown, [self.size,self.size])
-        self.image = self.imageRight
-        self.rect = self.image.get_rect(center = pos)
+    
 
         self.pos = pos
 
         self.kind = "shooting"
         self.notStopped = True
 
-        self.decideDirection()
+        self.didBounceX = False
+        self.didBounceY = False
+        self.inflationTime = 0
+        self.inflationLevel = 0
+        self.inflationMaxLevel = 5
+        self.inflationMaxTime = 2
+
+        self.state = "right"
+        self.prevState = "right"
+
+        self.frame = 0
+
+        self.animationTimer = 0
+        self.animationTimerMax = .3 * 60 #seconds * 60 fps
+
+        self.images = self.imagesRight
+        self.image = self.images[self.frame]
+        self.rect = self.image.get_rect(center = pos)
+        self.maxFrame = len(self.images) - 1
         
+        self.decideDirection()
         
         self.shootTimerMax = 3*60
         self.shootTimer = self.shootTimerMax

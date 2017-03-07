@@ -25,7 +25,6 @@ levelNumber = 1
 BG = Background(size)
 
 enemies = level.enemies
-print len(enemies)
 
 player = Player()
 dirts = level.dirts

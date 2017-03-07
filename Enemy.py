@@ -3,24 +3,19 @@ import pygame, sys, math, random
 class Enemy():
     def __init__(self, speed=0, pos=[0,0], size=64):
         self.size = size
-        self.imageLeft = pygame.image.load("Resources/Enemy/Enemy-Pew Left.png")
-        self.imageRight = pygame.image.load("Resources/Enemy/Enemy-Pew Right.png")
-        self.imageUp = pygame.image.load("Resources/Enemy/Enemy-Pew Up.png")
-        self.imageDown = pygame.image.load("Resources/Enemy/Enemy-Pew Down.png")
+        self.imagesLeft = [pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Left.png"), [self.size,self.size]),
+                           pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Left2.png"), [self.size,self.size])]
+        self.imagesRight = [pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Right.png"), [self.size,self.size]),
+                           pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Right2.png"), [self.size,self.size])]
+        self.imagesUp = [pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Up.png"), [self.size,self.size]),
+                           pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Up2.png"), [self.size,self.size])]
+        self.imagesDown = [pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Down.png"), [self.size,self.size]),
+                           pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Down2.png"), [self.size,self.size])]
 
-        self.imageLeft = pygame.transform.scale(self.imageLeft, [self.size,self.size])
-        self.imageRight = pygame.transform.scale(self.imageRight, [self.size,self.size])
-        self.imageUp = pygame.transform.scale(self.imageUp, [self.size,self.size])
-        self.imageDown = pygame.transform.scale(self.imageDown, [self.size,self.size])
 
-        self.image = self.imageRight
-        self.rect = self.image.get_rect(center = pos)
         self.maxSpeed = speed
 
         self.kind = "normal"
-
-        self.decideDirection()
-
 
         self.didBounceX = False
         self.didBounceY = False
@@ -31,13 +26,18 @@ class Enemy():
 
         self.state = "right"
         self.prevState = "right"
-        
-        
 
-        #self.frame = 0
-        #self.maxFrame = len(self.images) - 1
-        #self.animationTimer = 0
-        #self.animationTimerMax = .3 * 60 #seconds * 60 fps
+        self.frame = 0
+
+        self.animationTimer = 0
+        self.animationTimerMax = .3 * 60 #seconds * 60 fps
+
+        self.images = self.imagesRight
+        self.image = self.images[self.frame]
+        self.rect = self.image.get_rect(center = pos)
+        self.maxFrame = len(self.images) - 1
+        
+        self.decideDirection()
 
 
     def move(self):
@@ -47,29 +47,27 @@ class Enemy():
         self.rect = self.rect.move(self.speed)
         if self.speedx != 0:     #moving left/right
             if self.rect.left % self.size == 0:
-                #print "left/right", self.rect.center[0]
                 self.decideDirection()
         else:     #moving up/down
             if self.rect.top % self.size == 0:
-            #print "left/right", self.rect.center[1]
                 self.decideDirection()
         self.animate()
 
     def decideDirection(self):
         d = random.randint(0,3)
-        if d == 0: #up
+        if d == 0:
             self.speedx = 0
             self.speedy = -self.maxSpeed
             self.state = "up"
-        elif d == 1: #right
+        elif d == 1:
             self.speedx = self.maxSpeed
             self.speedy = 0
             self.state = "right"
-        elif d == 2: #down
+        elif d == 2:
             self.speedx = 0
             self.speedy = self.maxSpeed
             self.state = "down"
-        elif d == 3: #left
+        elif d == 3:
             self.speedx = -self.maxSpeed
             self.speedy = 0
             self.state = "left"
@@ -78,13 +76,26 @@ class Enemy():
         if self.prevState != self.state:
             self.prevState = self.state
             if self.state == "right":
-                self.image = self.imageRight
+                self.images = self.imagesRight
             elif self.state == "left":
-                self.image = self.imageLeft
+                self.images = self.imagesLeft
             elif self.state == "up":
-                self.image = self.imageUp
+                self.images = self.imagesUp
             elif self.state == "down":
-                self.image = self.imageDown
+                self.images = self.imagesDown
+            self.frame = 0
+            self.maxFrame = len(self.images) - 1
+            self.animationTimer = self.animationTimerMax
+
+        if self.animationTimer < self.animationTimerMax:
+            self.animationTimer += 1
+        else:
+            self.animationTimer = 0
+            if self.frame < self.maxFrame:
+                self.frame += 1
+            else:
+                self.frame = 0
+            self.image = self.images[self.frame]
 
     def dirtCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
@@ -112,7 +123,7 @@ class Enemy():
                     self.speedy = -self.speedy
                     self.move()
                     other.hit = True
-                    
+
     #def playerCollide(self, other):
         #if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
                 #if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
