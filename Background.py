@@ -8,15 +8,13 @@ class Background():
         self.rect = self.image.get_rect()
 
     def decideBackground(self):
-        images = ["Resources/Backgrounds/why.jpg",
-                  "Resources/Backgrounds/killmenow.jpg",
-                  "Resources/Backgrounds/killmeagain.jpg",
-                  "Resources/Backgrounds/killme.jpg",
-                  "Resources/Backgrounds/noplz.jpg",
-                  "Resources/Backgrounds/lel2.jpg",
-                  "Resources/Backgrounds/art.jpg",
-                  "Resources/Backgrounds/cool-and-good.jpg",
-                  "Resources/Backgrounds/ANGERY.jpg"]
+        images = ["Resources/Backgrounds/emailtojoe.jpg",
+                  "Resources/Backgrounds/asteroid.jpg",
+                  "Resources/Backgrounds/spoopy.jpg",
+                  "Resources/Backgrounds/space.jpg",
+                  "Resources/Backgrounds/asteroids.jpg",
+                  "Resources/Backgrounds/moreasteroids.jpg",
+                  "Resources/Backgrounds/generic.jpg"]
         b = random.randint(0, len(images)-1)
         return pygame.image.load(images[b])
         

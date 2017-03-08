@@ -25,14 +25,16 @@ levelNumber = 1
 BG = Background(size)
 
 enemies = level.enemies
+print len(enemies)
 
 player = Player()
 dirts = level.dirts
 playerLives = player.lives
-timer = Timer([width*.75, 30])
+timer = Timer([width*.75, 50])
 lives = Lives([width*.25, 50])
-levelnumberShow = LevelNumber([width*.75, 100])
+levelnumberShow = LevelNumber([width*.25, 100])
 bullets = []
+playerBullets = []
 while player.lives > 0:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
@@ -49,7 +51,6 @@ while player.lives > 0:
                 player.dig()
             if event.key == pygame.K_SPACE:
                 player.inflate()
-
             if event.key == pygame.K_KP_PLUS:
                 levelNumber += 1
                 level = Level("Digger level1.lvl", levelNumber)
@@ -64,7 +65,7 @@ while player.lives > 0:
                 enemies = level.enemies
                 player = Player()
                 dirts = level.dirts
-            
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.go("stop up")
@@ -75,7 +76,7 @@ while player.lives > 0:
             if event.key == pygame.K_LEFT:
                 player.go("stop left")
 
-    player.screenCollide(width)
+    player.screenCollide(size)
     for enemy in enemies:
         enemy.screenCollide(size)
         player.enemyCollide(enemy)
