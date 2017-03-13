@@ -83,19 +83,21 @@ while player.lives > 0:
         if enemy.kind == "shooting":
             if enemy.shoot(player):
                 bullets += [Bfire(enemy.state, enemy.rect.center)]
-        if player.inflateHit == True:
-            enemy.speedx = 0
-            enemy.speedy = 0
-            enemy.inflationLevel += 1
-            enemy.inflationTime = timer.value
-            player.inflateHit = False
-        if enemy.inflationTime > 0:
-            if (timer.value - enemy.inflationTime) > enemy.inflationMaxTime:
-                enemy.speedx = enemy.maxSpeed
-                enemy.speedy = enemy.maxSpeed
-                enemy.inflationTime = 0
-                enemy.inflationLevel = 0
-                print enemy.inflationTime
+        if enemy.hit == True:
+            if timer.value %2 == 0:
+                if enemy.blinkFrame < 6:
+                    enemy.blinkImage()
+                if enemy.blinkFrame == 6:
+                    enemy.blinkFrame = 0
+                    enemy.inflationLevel += 1
+                    enemy.hit = False
+
+            #if (timer.value - enemy.inflationTime) > 1:
+                #enemy.speedx = enemy.maxSpeed
+                #enemy.speedy = enemy.maxSpeed
+                #enemy.inflationTime = 0
+                #enemy.inflationLevel = 0
+                #print enemy.inflationTime
         if enemy.inflationLevel > enemy.inflationMaxLevel:
             enemies.remove(enemy)
     

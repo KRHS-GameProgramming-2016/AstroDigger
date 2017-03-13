@@ -3,7 +3,7 @@ from Player import *
 
 class Playerfire():
     def __init__(self, state, pos=[0,0], size=10):
-        self.maxSpeed = 2
+        self.maxSpeed = 4
         self.size = size
         self.inflateHit = False
         if state == "right":

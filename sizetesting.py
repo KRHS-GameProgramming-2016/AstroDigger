@@ -84,7 +84,7 @@ while player.lives > 0:
             enemy.inflationTime = timer.value
             player.inflateHit = False
         if enemy.inflationTime > 0:
-            if (timer.value - enemy.inflationTime) > enemy.inflationMaxTime:
+            if (timer.value - enemy.inflationTime) > 0:
                 enemy.speedx = enemy.maxSpeed
                 enemy.speedy = enemy.maxSpeed
                 enemy.inflationTime = 0

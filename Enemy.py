@@ -11,6 +11,7 @@ class Enemy():
                            pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Up2.png"), [self.size,self.size])]
         self.imagesDown = [pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Down.png"), [self.size,self.size]),
                            pygame.transform.scale(pygame.image.load("Resources/Enemy/Enemy-Pew Down2.png"), [self.size,self.size])]
+        self.blankImage = pygame.image.load("Resources/Player/blank.png")
 
 
         self.maxSpeed = speed
@@ -28,6 +29,7 @@ class Enemy():
         self.prevState = "right"
 
         self.frame = 0
+        self.blinkFrame = 0
 
         self.animationTimer = 0
         self.animationTimerMax = .3 * 60 #seconds * 60 fps
@@ -38,6 +40,8 @@ class Enemy():
         self.maxFrame = len(self.images) - 1
         
         self.decideDirection()
+        
+        self.hit = False
 
 
     def move(self):
@@ -96,6 +100,22 @@ class Enemy():
             else:
                 self.frame = 0
             self.image = self.images[self.frame]
+            
+            
+    def blinkImage(self):
+        if self.blinkFrame == 0:
+            self.prevImage = self.image
+            self.blinkFrame = 1
+            
+        self.blinkFrame1 = self.prevImage
+        self.blinkFrame2 = self.blankImage
+        
+        if self.blinkFrame > 0:
+            if self.blinkFrame % 2 == 0:
+                self.image = self.blinkFrame2
+            if self.blinkFrame % 2 != 0:
+                self.image = self.blinkFrame1
+            self.blinkFrame += 1
 
     def dirtCollide(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
