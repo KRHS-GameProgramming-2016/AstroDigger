@@ -53,16 +53,8 @@ while player.lives > 0:
             if event.key == pygame.K_SPACE:
                 playerBullets += [Playerfire(player.state, player.rect.center)]
             #for testing purposes DELETE LATER
-            if event.key == pygame.K_KP_PLUS:
+            if event.key == pygame.K_w:
                 levelNumber += 1
-                BG = Background(size)
-                level = Level("Digger level1.lvl", levelNumber)
-                enemies = level.enemies
-                player = Player()
-                dirts = level.dirts
-            if event.key == pygame.K_KP_MINUS:
-                levelNumber -= 1
-                BG = Background(size)
                 level = Level("Digger level1.lvl", levelNumber)
                 enemies = level.enemies
                 player = Player()
@@ -91,19 +83,16 @@ while player.lives > 0:
         if enemy.kind == "shooting":
             if enemy.shoot(player):
                 bullets += [Bfire(enemy.state, enemy.rect.center)]
-        if player.inflateHit == True:
-            enemy.speedx = 0
-            enemy.speedy = 0
-            enemy.inflationLevel += 1
-            enemy.inflationTime = timer.value
-            player.inflateHit = False
-        if enemy.inflationTime > 0:
-            if (timer.value - enemy.inflationTime) > enemy.inflationMaxTime:
-                enemy.speedx = enemy.maxSpeed
-                enemy.speedy = enemy.maxSpeed
-                enemy.inflationTime = 0
-                enemy.inflationLevel = 0
-                print enemy.inflationTime
+        if enemy.hit == True:
+                enemy.inflationLevel += 1
+                enemy.hit = False
+
+            #if (timer.value - enemy.inflationTime) > 1:
+                #enemy.speedx = enemy.maxSpeed
+                #enemy.speedy = enemy.maxSpeed
+                #enemy.inflationTime = 0
+                #enemy.inflationLevel = 0
+                #print enemy.inflationTime
         if enemy.inflationLevel > enemy.inflationMaxLevel:
             enemies.remove(enemy)
     
