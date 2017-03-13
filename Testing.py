@@ -10,6 +10,7 @@ from Level import *
 from Background import *
 from Lives import *
 from LevelNumber import *
+from Playerfire import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -50,22 +51,23 @@ while player.lives > 0:
             if event.key == pygame.K_d:
                 player.dig()
             if event.key == pygame.K_SPACE:
-                player.inflate()
+                playerBullets += [Playerfire(player.state, player.rect.center)]
+            #for testing purposes DELETE LATER
             if event.key == pygame.K_KP_PLUS:
                 levelNumber += 1
-                level = Level("Digger level1.lvl", levelNumber)
                 BG = Background(size)
+                level = Level("Digger level1.lvl", levelNumber)
                 enemies = level.enemies
                 player = Player()
                 dirts = level.dirts
             if event.key == pygame.K_KP_MINUS:
                 levelNumber -= 1
-                level = Level("Digger level1.lvl", levelNumber)
                 BG = Background(size)
+                level = Level("Digger level1.lvl", levelNumber)
                 enemies = level.enemies
                 player = Player()
                 dirts = level.dirts
-
+            
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 player.go("stop up")
@@ -82,6 +84,10 @@ while player.lives > 0:
         player.enemyCollide(enemy)
         enemy.playerCollide(player)
         player.inflateCollide(enemy)
+        for bullet in playerBullets:
+            bullet.enemyCollide(enemy)
+            if bullet.inflateHit == True:
+                player.inflateHit = True
         if enemy.kind == "shooting":
             if enemy.shoot(player):
                 bullets += [Bfire(enemy.state, enemy.rect.center)]
@@ -115,6 +121,8 @@ while player.lives > 0:
             
     for bullet in bullets:
         bullet.move()
+    for bullet in playerBullets:
+        bullet.move()
     
     for dirt in dirts:
         player.dirtCollide(dirt)
@@ -129,6 +137,11 @@ while player.lives > 0:
             bullet.playerCollide(player)
             if bullet.ded == True:
                 bullets.remove(bullet)
+        for bullet in playerBullets:
+            bullet.dirtCollide(dirt)
+            bullet.screenCollide(size)
+            if bullet.ded == True:
+                playerBullets.remove(bullet)
 
     timer.update()
     lives.update(playerLives)
@@ -152,6 +165,8 @@ while player.lives > 0:
     screen.fill(bgColor)
     screen.blit(BG.image, BG.rect)
     for bullet in bullets:
+        screen.blit(bullet.image, bullet.rect)
+    for bullet in playerBullets:
         screen.blit(bullet.image, bullet.rect)
     for enemy in enemies:
         screen.blit(enemy.image, enemy.rect)
