@@ -27,3 +27,28 @@ class Shade(Enemy):
 
         self.state = "right"
         self.prevState = "right"
+        
+        #self.frame = 0
+
+        #self.animationTimer = 0
+        #self.animationTimerMax = .3 * 60 #seconds * 60 fps
+
+        #self.images = self.imagesRight
+        #self.image = self.images[self.frame]
+        #self.rect = self.image.get_rect(center = pos)
+        #self.maxFrame = len(self.images) - 1
+        
+    def animate(self):
+    #if self.prevState != self.state:
+        self.prevState = self.state
+        if self.state == "right":
+            self.image = self.imageRight
+        elif self.state == "left":
+            self.image = self.imageLeft
+        elif self.state == "up":
+            self.image = self.imageUp
+        elif self.state == "down":
+            self.image = self.imageDown
+        #self.frame = 0
+        #self.maxFrame = len(self.images) - 1
+        #self.animationTimer = self.animationTimerMax
