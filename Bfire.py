@@ -5,19 +5,18 @@ class Bfire():
     def __init__(self, kind, state, pos=[0,0], size=64):
         self.maxSpeed = 2
         self.size = size
-        if kind == "enemy":
-            if state == "left":
-                self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Left.png")
-                self.speed = [-self.maxSpeed, 0]
-            elif state == "right":
-                self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Right.png")
-                self.speed = [self.maxSpeed, 0]
-            elif state == "up":
-                self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Up.png")
-                self.speed = [0, -self.maxSpeed]
-            else:
-                self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Down.png")
-                self.speed = [0, self.maxSpeed]
+        if state == "left":
+            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Left.png")
+            self.speed = [-self.maxSpeed, 0]
+        elif state == "right":
+            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Right.png")
+            self.speed = [self.maxSpeed, 0]
+        elif state == "up":
+            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Up.png")
+            self.speed = [0, -self.maxSpeed]
+        else:
+            self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Down.png")
+            self.speed = [0, self.maxSpeed]
 
         self.image = pygame.transform.scale(self.image, [self.size,self.size])
         self.rect = self.image.get_rect(center = pos)
