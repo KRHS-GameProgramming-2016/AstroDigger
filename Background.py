@@ -1,4 +1,5 @@
 import math, sys, pygame, random
+from LevelNumber import *
 
 class Background():
     def __init__(self, size=None):
@@ -17,19 +18,3 @@ class Background():
                   "Resources/Backgrounds/generic.jpg"]
         b = random.randint(0, len(images)-1)
         return pygame.image.load(images[b])
-        
-
-
-
-
-
-#Types of Backgrounds
-#why.jpg
-#killmenow.jpg
-#killmeagain.jpg
-#killme.jpg
-#noplz.jpg
-#lel2.jpg
-#art.jpg
-#cool-and-good.jpg
-#ANGERY.jpg

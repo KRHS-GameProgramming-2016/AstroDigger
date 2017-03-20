@@ -20,9 +20,10 @@ class Shade(Enemy):
 
         self.didBounceX = False
         self.didBounceY = False
+        self.hit = False
         self.inflationTime = 0
         self.inflationLevel = 0
-        self.inflationMaxLevel = 10
+        self.inflationMaxLevel = 20
         self.inflationMaxTime = 1
 
         self.state = "right"

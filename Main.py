@@ -105,9 +105,7 @@ while player.lives > 0:
         player.lives = 5
         playerLives = player.lives
         BG = Background(size)
-        
-
-            
+    
     for bullet in bullets:
         bullet.move()
     for bullet in playerBullets:

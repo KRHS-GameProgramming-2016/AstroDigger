@@ -48,12 +48,13 @@ while player.lives > 0:
                 player.go("right")
             if event.key == pygame.K_LEFT:
                 player.go("left")
-            if event.key == pygame.K_d:
+            if event.key == pygame.K_w:
                 player.dig()
             if event.key == pygame.K_SPACE:
                 playerBullets += [Playerfire(player.state, player.rect.center)]
             #for testing purposes DELETE LATER
-            if event.key == pygame.K_w:
+            if event.key == pygame.K_d:
+                BG = Background(size)
                 levelNumber += 1
                 level = Level("Digger level1.lvl", levelNumber)
                 enemies = level.enemies
@@ -105,9 +106,7 @@ while player.lives > 0:
         player.lives = 5
         playerLives = player.lives
         BG = Background(size)
-        
-
-            
+    
     for bullet in bullets:
         bullet.move()
     for bullet in playerBullets:

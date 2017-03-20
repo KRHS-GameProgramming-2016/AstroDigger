@@ -22,7 +22,7 @@ class Enemy():
         self.didBounceY = False
         self.inflationTime = 0
         self.inflationLevel = 0
-        self.inflationMaxLevel = 5
+        self.inflationMaxLevel = 10
         self.inflationMaxTime = 2
 
         self.state = "right"

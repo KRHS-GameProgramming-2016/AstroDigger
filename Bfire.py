@@ -3,7 +3,7 @@ from ShootingEnemy import *
 
 class Bfire():
     def __init__(self, state, pos=[0,0], size=64):
-        self.maxSpeed = 2
+        self.maxSpeed = 6
         self.size = size
         if state == "left":
             self.image = pygame.image.load("Resources/Enemy/Beatbox Fire Bolt Left.png")
@@ -20,7 +20,6 @@ class Bfire():
 
         self.image = pygame.transform.scale(self.image, [self.size,self.size])
         self.rect = self.image.get_rect(center = pos)
-        print pos, self.rect.center
 
         
         self.size = size
