@@ -72,6 +72,7 @@ while player.lives > 0:
         for bullet in playerBullets:
             bullet.enemyCollide(enemy)
             bullet.screenCollide(size)
+            bullet.dirtCollide(dirt)
             if bullet.inflateHit == True:
                 player.inflateHit = True
         if enemy.kind == "shooting":
