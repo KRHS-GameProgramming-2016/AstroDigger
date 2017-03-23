@@ -27,7 +27,7 @@ class ShootingEnemy(Enemy):
         self.didBounceY = False
         self.inflationTime = 0
         self.inflationLevel = 0
-        self.inflationMaxLevel = 5
+        self.inflationMaxLevel = 4
         self.inflationMaxTime = 2
 
         self.state = "right"
@@ -47,8 +47,8 @@ class ShootingEnemy(Enemy):
         
         self.shootTimerMax = 3*60
         self.shootTimer = self.shootTimerMax
-        self.inflationMaxLevel = 10
-        self.inflationMaxTime = 1
+        self.inflationMaxLevel = 4
+        self.inflationMaxTime = 2
 
     def decideDirection(self):
         d = random.randint(0,3)

@@ -23,21 +23,11 @@ class Shade(Enemy):
         self.hit = False
         self.inflationTime = 0
         self.inflationLevel = 0
-        self.inflationMaxLevel = 20
+        self.inflationMaxLevel = 19
         self.inflationMaxTime = 1
 
         self.state = "right"
         self.prevState = "right"
-        
-        #self.frame = 0
-
-        #self.animationTimer = 0
-        #self.animationTimerMax = .3 * 60 #seconds * 60 fps
-
-        #self.images = self.imagesRight
-        #self.image = self.images[self.frame]
-        #self.rect = self.image.get_rect(center = pos)
-        #self.maxFrame = len(self.images) - 1
         
     def animate(self):
     #if self.prevState != self.state:

@@ -26,7 +26,6 @@ levelNumber = 1
 BG = Background(size)
 
 enemies = level.enemies
-print len(enemies)
 
 player = Player()
 dirts = level.dirts
@@ -87,6 +86,7 @@ while player.lives > 0:
         if enemy.hit == True:
                 enemy.inflationLevel += 1
                 enemy.hit = False
+                print enemy.inflationLevel
 
             #if (timer.value - enemy.inflationTime) > 1:
                 #enemy.speedx = enemy.maxSpeed
